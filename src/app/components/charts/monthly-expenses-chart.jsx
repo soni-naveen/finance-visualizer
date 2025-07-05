@@ -17,18 +17,18 @@ export function MonthlyExpensesChart({ data }) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader chart={true}>
         <CardTitle>Monthly Expenses</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent chart={true}>
         <ChartContainer
           config={{
             expenses: {
               label: "Expenses",
-              color: "hsl(var(--chart-1))",
+              color: "var(--color-chart-1)",
             },
           }}
-          className="h-[300px]"
+          className="h-[300px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
@@ -36,17 +36,17 @@ export function MonthlyExpensesChart({ data }) {
                 dataKey="monthLabel"
                 fontSize={12}
                 tickLine={false}
-                axisLine={false}
+                axisLine={true}
               />
               <YAxis
                 fontSize={12}
                 tickLine={false}
-                axisLine={false}
+                axisLine={true}
                 tickFormatter={(value) => `$${value}`}
               />
               <ChartTooltip
                 content={<ChartTooltipContent />}
-                formatter={(value) => [formatCurrency(value), "Expenses"]}
+                formatter={(value) => [formatCurrency(value), " Expenses"]}
               />
               <Bar
                 dataKey="expenses"

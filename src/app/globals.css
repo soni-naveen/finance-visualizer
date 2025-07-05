@@ -24,12 +24,12 @@ body {
   --color-muted-foreground: oklch(0.451 0 0);
   --color-accent: oklch(0.961 0 0);
   --color-accent-foreground: oklch(0.09 0 0);
-  --color-destructive: oklch(0.602 0.842 0);
-  --color-destructive-foreground: oklch(0.98 0 0);
+  --color-destructive: oklch(0.55 0.25 27);
+  --color-destructive-foreground: oklch(0.98 0.01 27);
   --color-border: oklch(0.898 0 0);
   --color-input: oklch(0.898 0 0);
   --color-ring: oklch(0.039 0 0);
-  --color-chart-1: oklch(0.61 0.76 12);
+  --color-chart-1: oklch(0.8 0.5 250);
   --color-chart-2: oklch(0.39 0.58 173);
   --color-chart-3: oklch(0.24 0.37 197);
   --color-chart-4: oklch(0.66 0.74 43);

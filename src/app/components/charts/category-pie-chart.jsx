@@ -9,32 +9,19 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { formatCurrency } from "@/lib/utils/analytics";
 
-const COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-  "#8884d8",
-  "#82ca9d",
-  "#ffc658",
-  "#ff7300",
-  "#0088fe",
-];
-
 export function CategoryPieChart({ data }) {
   const chartData = data.map((item, index) => ({
     ...item,
-    fill: COLORS[index % COLORS.length],
+    fill: `hsl(${(index * 137.5) % 360}, 100%, 45%)`,
   }));
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader chart={true}>
         <CardTitle>Expenses by Category</CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={{}} className="h-[300px]">
+      <CardContent chart={true}>
+        <ChartContainer config={{}} className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -43,7 +30,7 @@ export function CategoryPieChart({ data }) {
                 cy="50%"
                 labelLine={false}
                 label={({ category, percent }) =>
-                  `${category} ${(percent * 100).toFixed(0)}%`
+                  `${(percent * 100).toFixed(0)}% ${category} `
                 }
                 outerRadius={80}
                 fill="#8884d8"

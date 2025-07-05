@@ -115,11 +115,11 @@ export function TransactionForm({ transaction, trigger }) {
   };
 
   const defaultTrigger = (
-    <Button>
+    <Button className="text-xs xs:text-sm">
       {transaction ? (
         <Edit className="h-4 w-4 mr-2" />
       ) : (
-        <Plus className="h-4 w-4 mr-2" />
+        <Plus className="h-4 w-4" />
       )}
       {transaction ? "Edit" : "Add Transaction"}
     </Button>

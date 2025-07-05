@@ -6,7 +6,7 @@ const Card = ({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      "rounded-lg border border-slate-200 bg-slate-50 text-card-foreground shadow-xs",
       className
     )}
     {...props}
@@ -14,10 +14,14 @@ const Card = ({ className, ...props }, ref) => (
 );
 Card.displayName = "Card";
 
-const CardHeader = ({ className, ...props }, ref) => (
+const CardHeader = ({ className, chart, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn(
+      "flex flex-col space-y-1.5 xs:p-6",
+      chart ? "px-4 py-6" : "p-4",
+      className
+    )}
     {...props}
   />
 );
@@ -27,7 +31,7 @@ const CardTitle = ({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
+      "text-lg xs:text-xl font-semibold leading-none tracking-tight",
       className
     )}
     {...props}
@@ -44,8 +48,12 @@ const CardDescription = ({ className, ...props }, ref) => (
 );
 CardDescription.displayName = "CardDescription";
 
-const CardContent = ({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+const CardContent = ({ className, chart, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("xs:p-6 pt-0", chart ? "p-1" : "p-4", className)}
+    {...props}
+  />
 );
 CardContent.displayName = "CardContent";
 

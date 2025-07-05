@@ -136,7 +136,7 @@ export function TransactionList({ transactions }) {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="text-red-600 hover:text-red-700 bg-transparent"
+                            className="text-red-600 hover:text-red-700 bg-white"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -156,7 +156,7 @@ export function TransactionList({ transactions }) {
                             <AlertDialogAction
                               onClick={() => handleDelete(transaction._id)}
                               disabled={deletingId === transaction._id}
-                              className="bg-red-600 hover:bg-red-700"
+                              className="bg-red-700 hover:bg-red-800"
                             >
                               {deletingId === transaction._id
                                 ? "Deleting..."

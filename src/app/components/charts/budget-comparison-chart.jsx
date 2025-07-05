@@ -30,22 +30,22 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader chart={true}>
         <CardTitle>Budget vs Actual Spending</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent chart={true}>
         <ChartContainer
           config={{
             budget: {
               label: "Budget",
-              color: "hsl(var(--chart-1))",
+              color: "var(--color-chart-1)",
             },
             actual: {
               label: "Actual",
-              color: "hsl(var(--chart-2))",
+              color: "var(--color-chart-3)",
             },
           }}
-          className="h-[300px]"
+          className="h-[300px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
@@ -53,7 +53,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 dataKey="category"
                 fontSize={12}
                 tickLine={false}
-                axisLine={false}
+                axisLine={true}
                 angle={-45}
                 textAnchor="end"
                 height={80}
@@ -61,12 +61,12 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
               <YAxis
                 fontSize={12}
                 tickLine={false}
-                axisLine={false}
+                axisLine={true}
                 tickFormatter={(value) => `$${value}`}
               />
               <ChartTooltip
                 content={<ChartTooltipContent />}
-                formatter={(value, name) => [formatCurrency(value), name]}
+                formatter={(value, name) => [formatCurrency(value), ` ${name}`]}
               />
               <Legend />
               <Bar
