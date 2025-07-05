@@ -145,7 +145,7 @@ export function BudgetForm({ budget, trigger }) {
               </SelectContent>
             </Select>
             {errors.category && (
-              <p className="text-sm text-red-500 mt-1">{errors.category}</p>
+              <p className="text-xs text-red-500 mt-1">{errors.category}</p>
             )}
           </div>
 
@@ -162,7 +162,7 @@ export function BudgetForm({ budget, trigger }) {
               className={errors.amount ? "border-red-500" : ""}
             />
             {errors.amount && (
-              <p className="text-sm text-red-500 mt-1">{errors.amount}</p>
+              <p className="text-xs text-red-500 mt-1">{errors.amount}</p>
             )}
           </div>
 
@@ -179,7 +179,7 @@ export function BudgetForm({ budget, trigger }) {
               disabled={!!budget}
             />
             {errors.month && (
-              <p className="text-sm text-red-500 mt-1">{errors.month}</p>
+              <p className="text-xs text-red-500 mt-1">{errors.month}</p>
             )}
           </div>
 

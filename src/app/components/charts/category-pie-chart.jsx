@@ -55,7 +55,7 @@ export function CategoryPieChart({ data }) {
               </Pie>
               <ChartTooltip
                 content={<ChartTooltipContent />}
-                formatter={(value) => [formatCurrency(value), "Amount"]}
+                formatter={(value) => [formatCurrency(value), " Amount"]}
               />
             </PieChart>
           </ResponsiveContainer>

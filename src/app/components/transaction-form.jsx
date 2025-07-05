@@ -1,24 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "@/components/ui/dialog";
 import {
   createTransaction,
   updateTransaction,
@@ -31,10 +31,11 @@ export function TransactionForm({ transaction, trigger }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    amount: transaction?.amount.toString() || "",
+    amount: transaction?.amount?.toString() || "",
     date: transaction?.date || new Date().toISOString().split("T")[0],
     description: transaction?.description || "",
     category: transaction?.category || "",
+    type: transaction?.type || "expense",
   });
   const [errors, setErrors] = useState({});
   const { toast } = useToast();
@@ -148,7 +149,7 @@ export function TransactionForm({ transaction, trigger }) {
                 className={errors.amount ? "border-red-500" : ""}
               />
               {errors.amount && (
-                <p className="text-sm text-red-500 mt-1">{errors.amount}</p>
+                <p className="text-xs text-red-500 mt-1">{errors.amount}</p>
               )}
             </div>
             <div>
@@ -163,7 +164,7 @@ export function TransactionForm({ transaction, trigger }) {
                 className={errors.date ? "border-red-500" : ""}
               />
               {errors.date && (
-                <p className="text-sm text-red-500 mt-1">{errors.date}</p>
+                <p className="text-xs text-red-500 mt-1">{errors.date}</p>
               )}
             </div>
           </div>
@@ -179,7 +180,7 @@ export function TransactionForm({ transaction, trigger }) {
               className={errors.description ? "border-red-500" : ""}
             />
             {errors.description && (
-              <p className="text-sm text-red-500 mt-1">{errors.description}</p>
+              <p className="text-xs text-red-500 mt-1">{errors.description}</p>
             )}
           </div>
 
@@ -206,7 +207,7 @@ export function TransactionForm({ transaction, trigger }) {
                 </SelectContent>
               </Select>
               {errors.category && (
-                <p className="text-sm text-red-500 mt-1">{errors.category}</p>
+                <p className="text-xs text-red-500 mt-1">{errors.category}</p>
               )}
             </div>
 
@@ -214,7 +215,9 @@ export function TransactionForm({ transaction, trigger }) {
               <Label htmlFor="type">Type</Label>
               <Select
                 value={formData.type}
-                onValueChange={() => setFormData({ ...formData })}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, type: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue />

@@ -9,6 +9,7 @@ body {
 }
 
 @theme {
+  --breakpoint-xs: 480px;
   --color-background: oklch(1 0 0);
   --color-foreground: oklch(0.039 0 0);
   --color-card: oklch(1 0 0);

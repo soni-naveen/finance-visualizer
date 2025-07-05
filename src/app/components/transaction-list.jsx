@@ -92,7 +92,7 @@ export function TransactionList({ transactions }) {
               {transactions.map((transaction) => (
                 <TableRow key={transaction._id}>
                   <TableCell>
-                    {new Date(transaction.date).toLocaleDateString()}
+                    {new Date(transaction.date).toISOString().split("T")[0]}
                   </TableCell>
                   <TableCell className="max-w-[200px] truncate">
                     {transaction.description}
