@@ -142,7 +142,7 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium">Top Spending Category</h4>
+                <h4 className="font-medium mb-1">Top Spending Category</h4>
                 <p className="text-sm text-muted-foreground">
                   {currentMonthCategorySummary[0]?.category} -{" "}
                   {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
 
               {budgets.length > 0 && (
                 <div>
-                  <h4 className="font-medium">Budget Status</h4>
+                  <h4 className="font-medium mb-1">Budget Status</h4>
                   <div className="space-y-2">
                     {budgets.map((budget) => {
                       const actual =

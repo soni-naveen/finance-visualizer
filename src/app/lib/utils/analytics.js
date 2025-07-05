@@ -1,5 +1,3 @@
-// Utility functions for transactions
-
 export function getCategorySummary(transactions) {
   const summary = new Map();
 

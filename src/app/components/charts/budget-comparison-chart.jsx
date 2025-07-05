@@ -17,14 +17,22 @@ import {
 import { formatCurrency } from "@/lib/utils/analytics";
 
 export function BudgetComparisonChart({ budgets, actualSpending }) {
-  const chartData = budgets.map((budget) => {
+  const allCategories = Array.from(
+    new Set([
+      ...budgets.map((b) => b.category),
+      ...actualSpending.map((a) => a.category),
+    ])
+  );
+
+  const chartData = allCategories.map((category) => {
+    const budget = budgets.find((b) => b.category === category)?.amount || 0;
     const actual =
-      actualSpending.find((a) => a.category === budget.category)?.total || 0;
+      actualSpending.find((a) => a.category === category)?.total || 0;
     return {
-      category: budget.category,
-      budget: budget.amount,
-      actual: actual,
-      remaining: Math.max(0, budget.amount - actual),
+      category,
+      budget,
+      actual,
+      remaining: Math.max(0, budget - actual),
     };
   });
 
