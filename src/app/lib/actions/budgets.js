@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// Create a new budget entry
+// new budget
 export async function createBudget(budget) {
   try {
     const client = await clientPromise;
@@ -37,7 +37,10 @@ export async function createBudget(budget) {
     return { success: true, id: result.insertedId.toString() };
   } catch (error) {
     console.error("Error creating budget:", error);
-    return { success: false, error: "Failed to create budget" };
+    return {
+      success: false,
+      error: "Failed to create budget",
+    };
   }
 }
 
@@ -62,7 +65,10 @@ export async function updateBudget(id, budget) {
     return { success: true };
   } catch (error) {
     console.error("Error updating budget:", error);
-    return { success: false, error: "Failed to update budget" };
+    return {
+      success: false,
+      error: "Failed to update budget",
+    };
   }
 }
 

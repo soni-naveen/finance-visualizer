@@ -35,14 +35,15 @@ export function CategoryPieChart({ data }) {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="total"
+                nameKey="category"
               >
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.fill} />
                 ))}
               </Pie>
               <ChartTooltip
-                content={<ChartTooltipContent />}
-                formatter={(value) => [formatCurrency(value), " Amount"]}
+                content={<ChartTooltipContent nameKey="category" />}
+                formatter={(value) => [formatCurrency(value)]}
               />
             </PieChart>
           </ResponsiveContainer>

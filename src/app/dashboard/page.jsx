@@ -44,7 +44,7 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container bg-slate-100 mx-auto px-4 py-8">
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between sm:items-center mb-8">
         <h1 className="text-xl xs:text-2xl md:text-3xl font-bold">Financial Dashboard</h1>
         <div className="flex space-x-2">
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
 
               {budgets.length > 0 && (
                 <div>
-                  <h4 className="font-medium mb-1">Budget Status</h4>
+                  <h4 className="font-medium mb-2">Budget Status</h4>
                   <div className="space-y-2">
                     {budgets.map((budget) => {
                       const actual =
@@ -166,9 +166,9 @@ export default async function DashboardPage() {
                           key={budget._id}
                           className="flex justify-between items-center"
                         >
-                          <span className="text-sm">{budget.category}</span>
+                          <span className="text-xs xs:text-sm">{budget.category}</span>
                           <div className="flex items-center space-x-2">
-                            <span className="text-sm">
+                            <span className="text-xs xs:text-sm">
                               {formatCurrency(actual)} /{" "}
                               {formatCurrency(budget.amount)}
                             </span>

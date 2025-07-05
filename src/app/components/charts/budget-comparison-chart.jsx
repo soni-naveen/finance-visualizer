@@ -46,11 +46,11 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
           config={{
             budget: {
               label: "Budget",
-              color: "var(--color-chart-1)",
+              color: "var(--color-chart-3)",
             },
             actual: {
               label: "Actual",
-              color: "var(--color-chart-3)",
+              color: "var(--color-chart-1)",
             },
           }}
           className="h-[300px] w-full"

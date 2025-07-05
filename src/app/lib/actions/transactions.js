@@ -24,10 +24,16 @@ export async function createTransaction(transaction) {
     revalidatePath("/");
     revalidatePath("/dashboard");
 
-    return { success: true, id: result.insertedId.toString() };
+    return {
+      success: true,
+      id: result.insertedId.toString(),
+    };
   } catch (error) {
     console.error("Error creating transaction:", error);
-    return { success: false, error: "Failed to create transaction" };
+    return {
+      success: false,
+      error: "Failed to create transaction",
+    };
   }
 }
 
@@ -53,7 +59,10 @@ export async function updateTransaction(id, transaction) {
     return { success: true };
   } catch (error) {
     console.error("Error updating transaction:", error);
-    return { success: false, error: "Failed to update transaction" };
+    return {
+      success: false,
+      error: "Failed to update transaction",
+    };
   }
 }
 
@@ -71,7 +80,10 @@ export async function deleteTransaction(id) {
     return { success: true };
   } catch (error) {
     console.error("Error deleting transaction:", error);
-    return { success: false, error: "Failed to delete transaction" };
+    return {
+      success: false,
+      error: "Failed to delete transaction",
+    };
   }
 }
 

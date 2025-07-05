@@ -1,10 +1,9 @@
 "use client";
 
-// Inspired by react-hot-toast library
 import { useEffect, useState } from "react";
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_REMOVE_DELAY = 5000;
 
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
@@ -57,8 +56,6 @@ export const reducer = (state, action) => {
     case "DISMISS_TOAST": {
       const { toastId } = action;
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId);
       } else {
