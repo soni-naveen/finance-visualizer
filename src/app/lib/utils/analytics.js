@@ -66,8 +66,8 @@ export function formatCurrency(amount) {
 export function formatMonth(monthString) {
   const date = new Date(monthString + "-01");
   const shortMonth = date.toLocaleString("en-US", { month: "short" });
-  const shortYear = String(date.getFullYear()).slice(2);
-  return `${shortMonth}'${shortYear}`;
+  const shortYear = date.getFullYear();
+  return `${shortMonth} ${shortYear}`;
 }
 
 export function formatFullDate(dateString) {
