@@ -46,7 +46,7 @@ export default async function DashboardPage() {
   return (
     <div className="container bg-slate-100 mx-auto px-4 py-8">
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between sm:items-center mb-8">
-        <h1 className="text-xl xs:text-2xl md:text-3xl font-bold">Financial Dashboard</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Financial Dashboard</h1>
         <div className="flex space-x-2">
           <TransactionForm />
           <BudgetForm />

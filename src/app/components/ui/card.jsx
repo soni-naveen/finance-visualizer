@@ -31,7 +31,7 @@ const CardTitle = ({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "text-lg xs:text-xl font-semibold leading-none tracking-tight",
+      "text-xl font-semibold leading-none tracking-tight",
       className
     )}
     {...props}
