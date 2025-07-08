@@ -1,17 +1,27 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getCurrentUserIdFromCookies } from "@/lib/firebase/server-auth";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// Create a transaction
+async function getUserId() {
+  const userId = await getCurrentUserIdFromCookies();
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+  return userId;
+}
+
 export async function createTransaction(transaction) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
     const newTransaction = {
       ...transaction,
+      userId,
       amount: Number(transaction.amount),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -21,25 +31,18 @@ export async function createTransaction(transaction) {
       .collection("transactions")
       .insertOne(newTransaction);
 
-    revalidatePath("/");
     revalidatePath("/dashboard");
 
-    return {
-      success: true,
-      id: result.insertedId.toString(),
-    };
+    return { success: true, id: result.insertedId.toString() };
   } catch (error) {
     console.error("Error creating transaction:", error);
-    return {
-      success: false,
-      error: "Failed to create transaction",
-    };
+    return { success: false, error: "Failed to create transaction" };
   }
 }
 
-// Update a transaction
 export async function updateTransaction(id, transaction) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
@@ -49,53 +52,56 @@ export async function updateTransaction(id, transaction) {
       updatedAt: new Date(),
     };
 
-    await db
+    const result = await db
       .collection("transactions")
-      .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+      .updateOne({ _id: new ObjectId(id), userId }, { $set: updateData });
 
-    revalidatePath("/");
+    if (result.matchedCount === 0) {
+      return { success: false, error: "Transaction not found or unauthorized" };
+    }
+
     revalidatePath("/dashboard");
 
     return { success: true };
   } catch (error) {
     console.error("Error updating transaction:", error);
-    return {
-      success: false,
-      error: "Failed to update transaction",
-    };
+    return { success: false, error: "Failed to update transaction" };
   }
 }
 
-// Delete a transaction
 export async function deleteTransaction(id) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
-    await db.collection("transactions").deleteOne({ _id: new ObjectId(id) });
+    const result = await db.collection("transactions").deleteOne({
+      _id: new ObjectId(id),
+      userId,
+    });
 
-    revalidatePath("/");
+    if (result.deletedCount === 0) {
+      return { success: false, error: "Transaction not found or unauthorized" };
+    }
+
     revalidatePath("/dashboard");
 
     return { success: true };
   } catch (error) {
     console.error("Error deleting transaction:", error);
-    return {
-      success: false,
-      error: "Failed to delete transaction",
-    };
+    return { success: false, error: "Failed to delete transaction" };
   }
 }
 
-// Fetch transactions, optionally limited
 export async function getTransactions(limit) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
     const query = db
       .collection("transactions")
-      .find({})
+      .find({ userId })
       .sort({ date: -1, createdAt: -1 });
 
     if (limit) {

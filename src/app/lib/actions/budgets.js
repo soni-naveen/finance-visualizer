@@ -1,17 +1,26 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getCurrentUserIdFromCookies } from "@/lib/firebase/server-auth";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// new budget
+async function getUserId() {
+  const userId = await getCurrentUserIdFromCookies();
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+  return userId;
+}
+
 export async function createBudget(budget) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
-    // Check if budget already exists for this category and month
     const existing = await db.collection("budgets").findOne({
+      userId,
       category: budget.category,
       month: budget.month,
     });
@@ -25,6 +34,7 @@ export async function createBudget(budget) {
 
     const newBudget = {
       ...budget,
+      userId,
       amount: Number(budget.amount),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -37,16 +47,13 @@ export async function createBudget(budget) {
     return { success: true, id: result.insertedId.toString() };
   } catch (error) {
     console.error("Error creating budget:", error);
-    return {
-      success: false,
-      error: "Failed to create budget",
-    };
+    return { success: false, error: "Failed to create budget" };
   }
 }
 
-// Update an existing budget entry
 export async function updateBudget(id, budget) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
@@ -56,29 +63,30 @@ export async function updateBudget(id, budget) {
       updatedAt: new Date(),
     };
 
-    await db
+    const result = await db
       .collection("budgets")
-      .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+      .updateOne({ _id: new ObjectId(id), userId }, { $set: updateData });
+
+    if (result.matchedCount === 0) {
+      return { success: false, error: "Budget not found or unauthorized" };
+    }
 
     revalidatePath("/dashboard");
 
     return { success: true };
   } catch (error) {
     console.error("Error updating budget:", error);
-    return {
-      success: false,
-      error: "Failed to update budget",
-    };
+    return { success: false, error: "Failed to update budget" };
   }
 }
 
-// Fetch budgets (optionally filtered by month)
 export async function getBudgets(month) {
   try {
+    const userId = await getUserId();
     const client = await clientPromise;
     const db = client.db("finance-app");
 
-    const query = month ? { month } : {};
+    const query = { userId, ...(month && { month }) };
     const budgets = await db.collection("budgets").find(query).toArray();
 
     return budgets.map((b) => ({
