@@ -28,9 +28,11 @@ import { deleteTransaction } from "@/lib/actions/transactions";
 import { formatCurrency } from "@/lib/utils/analytics";
 import { Edit, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { formatFullDate } from "@/lib/utils/analytics";
 
 export function TransactionList({ transactions }) {
   const [deletingId, setDeletingId] = useState(null);
+  const [showAll, setShowAll] = useState(false);
   const { toast } = useToast();
 
   const handleDelete = async (id) => {
@@ -58,6 +60,10 @@ export function TransactionList({ transactions }) {
       setDeletingId(null);
     }
   };
+
+  const displayedTransactions = showAll
+    ? transactions
+    : transactions.slice(0, 10);
 
   if (transactions.length === 0) {
     return (
@@ -89,10 +95,10 @@ export function TransactionList({ transactions }) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.map((transaction) => (
+              {displayedTransactions.map((transaction) => (
                 <TableRow key={transaction._id}>
-                  <TableCell>
-                    {new Date(transaction.date).toISOString().split("T")[0]}
+                  <TableCell className="max-w-[200px] truncate">
+                    {formatFullDate(transaction.date)}
                   </TableCell>
                   <TableCell className="max-w-[200px] truncate">
                     {transaction.description}
@@ -172,6 +178,14 @@ export function TransactionList({ transactions }) {
             </TableBody>
           </Table>
         </div>
+        {/* View All Transactions */}
+        {transactions.length > 10 && (
+          <div className="mt-4 flex justify-center">
+            <Button variant="ghost" onClick={() => setShowAll(!showAll)}>
+              {showAll ? "Show Recent Only" : "View All Transactions"}
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

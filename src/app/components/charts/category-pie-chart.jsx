@@ -26,11 +26,12 @@ export function CategoryPieChart({ data }) {
             <PieChart>
               <Pie
                 data={chartData}
+                fontSize={10}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
                 label={({ category, percent }) =>
-                  `${(percent * 100).toFixed(0)}% ${category} `
+                  `${(percent * 100).toFixed(0)}% ${category}`
                 }
                 outerRadius={80}
                 fill="#8884d8"
@@ -43,7 +44,7 @@ export function CategoryPieChart({ data }) {
               </Pie>
               <ChartTooltip
                 content={<ChartTooltipContent nameKey="category" />}
-                formatter={(value) => [formatCurrency(value)]}
+                formatter={(value, name) => [formatCurrency(value), ` ${name}`]}
               />
             </PieChart>
           </ResponsiveContainer>

@@ -59,7 +59,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
             <BarChart data={chartData}>
               <XAxis
                 dataKey="category"
-                fontSize={12}
+                fontSize={11}
                 tickLine={false}
                 axisLine={true}
                 angle={-45}
@@ -67,7 +67,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 height={80}
               />
               <YAxis
-                fontSize={12}
+                fontSize={11}
                 tickLine={false}
                 axisLine={true}
                 tickFormatter={(value) => `$${value}`}

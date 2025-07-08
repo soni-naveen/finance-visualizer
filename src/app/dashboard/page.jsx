@@ -131,7 +131,7 @@ export default async function DashboardPage() {
       )}
 
       {/* Recent Transactions */}
-      <TransactionList transactions={transactions.slice(0, 10)} />
+      <TransactionList transactions={transactions} />
 
       {/* Spending Insights */}
       {currentMonthCategorySummary.length > 0 && (
