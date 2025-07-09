@@ -3,6 +3,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Input = ({ className, type, ...props }, ref) => {
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return <p className="h-10 w-full rounded-md bg-gray-100 animate-pulse"></p>;
+
   return (
     <input
       type={type}
