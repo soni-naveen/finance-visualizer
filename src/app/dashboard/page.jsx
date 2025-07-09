@@ -25,13 +25,21 @@ import {
   getCurrentMonthString,
   formatCurrency,
 } from "@/lib/utils/analytics";
-import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
+import {
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
+  PieChart,
+  LogOut,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const token = useAuthToken();
   const [transactions, setTransactions] = useState([]);
   const [budgets, setBudgets] = useState([]);
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -235,6 +243,18 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Logout  */}
+        <div className="w-full flex justify-center mt-5">
+          <Button
+            onClick={logout}
+            variant={"outline"}
+            className="w-full sm:w-fit"
+          >
+            <LogOut />
+            Logout
+          </Button>
+        </div>
       </div>
     </AuthGuard>
   );
