@@ -3,7 +3,6 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import clientPromise from "@/lib/mongodb";
-import { sendPasswordResetEmail } from "@/lib/email";
 
 export async function createUser(userData) {
   try {

@@ -8,7 +8,7 @@ const Input = ({ className, type, ...props }, ref) => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return <p className="h-10 w-full rounded-md bg-gray-100 animate-pulse"></p>;
+  if (!isClient) return <p className="h-10 w-full rounded-md border border-input animate-pulse"></p>;
 
   return (
     <input
