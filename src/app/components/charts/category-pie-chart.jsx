@@ -15,6 +15,19 @@ export function CategoryPieChart({ data }) {
     fill: `hsl(${(index * 137.5) % 360}, 100%, 45%)`,
   }));
 
+  if (data.length === 0) {
+    return (
+      <Card>
+        <CardHeader chart={true}>
+          <CardTitle>Expenses by Category</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center justify-center py-8">
+          <p className="text-muted-foreground mb-4">No data to display.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader chart={true}>

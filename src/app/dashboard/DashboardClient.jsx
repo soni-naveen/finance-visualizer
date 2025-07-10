@@ -27,7 +27,7 @@ import {
 import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
 
 export default function DashboardClient({ transactions, budgets }) {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const token = useAuthToken();
 
   useEffect(() => {

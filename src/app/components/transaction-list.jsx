@@ -69,7 +69,7 @@ export function TransactionList({ transactions }) {
     return (
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-8">
-          <p className="text-muted-foreground mb-4">No transactions found</p>
+          <p className="text-muted-foreground mb-4">No transactions found.</p>
           <TransactionForm />
         </CardContent>
       </Card>
