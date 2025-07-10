@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <main className="min-h-screen bg-slate-100">{children}</main>
+          <main className="min-h-screen bg-slate-50">{children}</main>
           <Toaster />
         </AuthProvider>
       </body>

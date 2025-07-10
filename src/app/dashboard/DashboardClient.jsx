@@ -24,14 +24,7 @@ import {
   getCurrentMonthString,
   formatCurrency,
 } from "@/lib/utils/analytics";
-import {
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  PieChart,
-  LogOut,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
 
 export default function DashboardClient({ transactions, budgets }) {
   const { user, logout } = useAuth();
@@ -64,21 +57,24 @@ export default function DashboardClient({ transactions, budgets }) {
   return (
     <AuthGuard>
       <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between sm:items-center mb-8">
-          <div className="space-y-1">
-            <h1 className="text-2xl md:text-3xl font-bold">
-              Financial Dashboard
-            </h1>
-            <p className="text-muted-foreground flex items-center gap-2">
-              <UserProfile />
-              <span className="text-sm md:text-base">
+        <div className="flex flex-col gap-4 md:gap-0 md:flex-row justify-between md:items-center mb-8">
+          <div className="flex justify-between items-center">
+            <div className="md:space-y-1">
+              <h1 className="text-2xl md:text-3xl font-bold">
+                Financial Dashboard
+              </h1>
+              <p className="text-muted-foreground text-sm md:text-base flex items-center gap-2">
                 Welcome back, {user?.displayName || "User"}!
-              </span>
-            </p>
+              </p>
+            </div>
+            <div>
+              <UserProfile className="text-lg md:hidden" />
+            </div>
           </div>
           <div className="flex items-center space-x-2">
             <TransactionForm />
             <BudgetForm />
+            <UserProfile className="ml-1 text-lg hidden md:flex" />
           </div>
         </div>
 
@@ -221,18 +217,6 @@ export default function DashboardClient({ transactions, budgets }) {
             </CardContent>
           </Card>
         )}
-
-        {/* Logout  */}
-        <div className="w-full flex justify-center mt-5">
-          <Button
-            onClick={logout}
-            variant={"outline"}
-            className="w-full sm:w-fit"
-          >
-            <LogOut />
-            Logout
-          </Button>
-        </div>
       </div>
     </AuthGuard>
   );

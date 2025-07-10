@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useAuth } from "@/lib/firebase/auth-context";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,9 +13,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, LogOut, Settings } from "lucide-react";
+import { LogOut } from "lucide-react";
 
-export function UserProfile() {
+export function UserProfile({ className }) {
   const { user, logout } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -43,8 +44,11 @@ export function UserProfile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
+        <Button
+          variant="ghost"
+          className={cn("relative h-10 w-10 rounded-full", className)}
+        >
+          <Avatar className="h-10 w-10">
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
         </Button>
@@ -61,14 +65,6 @@ export function UserProfile() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <User className="mr-2 h-4 w-4" />
-          <span>Profile</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
-        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} disabled={loading}>
           <LogOut className="mr-2 h-4 w-4" />
