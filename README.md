@@ -67,7 +67,7 @@ FIREBASE_PRIVATE_KEY=your_private_key
 
 ### Firebase Setup
 1. Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Authentication and configure your preferred sign-in methods (Email/Password, Google, etc.)
+2. Enable Authentication and configure your preferred sign-in methods (In this project: Email/Password)
 3. Get your Firebase configuration from Project Settings
 4. Add the configuration to your `.env` file
 
