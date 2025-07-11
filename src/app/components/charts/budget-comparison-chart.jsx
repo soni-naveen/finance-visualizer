@@ -83,11 +83,11 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
           config={{
             budget: {
               label: "Budget",
-              color: "var(--color-chart-3)",
+              color: "var(--color-chart-2)",
             },
             actual: {
               label: "Actual",
-              color: "var(--color-chart-1)",
+              color: "var(--color-chart-4)",
             },
           }}
           className="h-[300px] w-full"
@@ -135,7 +135,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
               <Button
                 variant="outline"
                 size="sm"
-                className="text-red-600 hover:text-red-700 bg-white"
+                className="text-red-600 hover:text-red-700"
               >
                 <Trash2 className="h-4 w-4" />
                 Delete All

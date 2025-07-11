@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { AlertTriangle } from "lucide-react";
 
 export default function Error({ error, reset }) {
+  const router = useRouter();
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -21,7 +23,7 @@ export default function Error({ error, reset }) {
           <p className="text-muted-foreground">
             An error occurred while loading your financial data.
           </p>
-          <Button onClick={reset}>Try again</Button>
+          <Button onClick={() => router.push("/")}>Try again</Button>
         </CardContent>
       </Card>
     </div>
