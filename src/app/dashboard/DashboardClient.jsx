@@ -25,6 +25,7 @@ import {
   formatCurrency,
 } from "@/lib/utils/analytics";
 import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
+import Footer from "@/components/footer";
 
 export default function DashboardClient({ transactions, budgets }) {
   const { user } = useAuth();
@@ -218,6 +219,7 @@ export default function DashboardClient({ transactions, budgets }) {
           </Card>
         )}
       </div>
+      <Footer />
     </AuthGuard>
   );
 }

@@ -93,6 +93,27 @@ export async function deleteTransaction(id) {
   }
 }
 
+export async function deleteAllTransactions() {
+  try {
+    const userId = await getUserId();
+    const client = await clientPromise;
+    const db = client.db("finance-app");
+
+    const result = await db.collection("transactions").deleteMany({ userId });
+
+    if (result.deletedCount === 0) {
+      return { success: false, error: "transactions not found or unauthorized" };
+    }
+
+    revalidatePath("/dashboard");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting transactions:", error);
+    return { success: false, error: "Failed to delete transactions" };
+  }
+}
+
 export async function getTransactions(limit) {
   try {
     const userId = await getUserId();
