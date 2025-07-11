@@ -1,6 +1,8 @@
 # Personal Finance Visualizer
 A simple and responsive web application to track and visualize your personal finances. Built with **Next.js**, **React**, **MongoDB**, **Recharts**, **Firebase Authentication**, and **shadcn/ui**.
 
+Try it here : [financevisualizer.vercel.app](https://financevisualizer.vercel.app/)
+
 ---
 
 ## Features
