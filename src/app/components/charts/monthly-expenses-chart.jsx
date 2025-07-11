@@ -55,7 +55,7 @@ export function MonthlyExpensesChart({ data }) {
                 fontSize={12}
                 tickLine={false}
                 axisLine={true}
-                tickFormatter={(value) => `$${value}`}
+                tickFormatter={(value) => `₹${value}`}
               />
               <ChartTooltip
                 content={<ChartTooltipContent />}

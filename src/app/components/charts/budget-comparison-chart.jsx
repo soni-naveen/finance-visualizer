@@ -107,7 +107,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 fontSize={11}
                 tickLine={false}
                 axisLine={true}
-                tickFormatter={(value) => `$${value}`}
+                tickFormatter={(value) => `₹${value}`}
               />
               <ChartTooltip
                 content={<ChartTooltipContent />}
