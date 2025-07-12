@@ -29,12 +29,7 @@ import Footer from "@/components/footer";
 
 export default function DashboardClient({ transactions, budgets }) {
   const { user } = useAuth();
-  const token = useAuthToken();
-
-  useEffect(() => {
-    if (!token) return;
-  }, [token]);
-
+  
   const currentMonth = getCurrentMonthString();
   const currentMonthTransactions = transactions.filter((t) =>
     t.date.startsWith(currentMonth)

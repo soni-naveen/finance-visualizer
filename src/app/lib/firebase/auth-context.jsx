@@ -25,33 +25,12 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isAuthReady, setIsAuthReady] = useState(false);
   const router = useRouter();
-
-  const setCookieFromUser = async (user) => {
-    if (user) {
-      try {
-        const token = await user.getIdToken();
-        document.cookie = `firebase-auth-token=${token}; path=/; max-age=3600; secure; samesite=strict`;
-
-        // Wait a bit to ensure cookie is set before marking as ready
-        setTimeout(() => setIsAuthReady(true), 150);
-      } catch (error) {
-        console.error("Error setting auth cookie:", error);
-        setIsAuthReady(true);
-      }
-    } else {
-      document.cookie =
-        "firebase-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      setIsAuthReady(true);
-    }
-  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       setLoading(false);
-      await setCookieFromUser(user);
     });
 
     return unsubscribe;
@@ -59,7 +38,6 @@ export function AuthProvider({ children }) {
 
   const signIn = async (email, password) => {
     setLoading(true);
-    setIsAuthReady(false);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
@@ -71,7 +49,6 @@ export function AuthProvider({ children }) {
 
   const signUp = async (email, password, name) => {
     setLoading(true);
-    setIsAuthReady(false);
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -102,7 +79,6 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
-    isAuthReady,
     signIn,
     signUp,
     logout,
