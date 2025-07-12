@@ -25,6 +25,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const router = useRouter();
 
   const setCookieFromUser = async (user) => {
@@ -50,6 +51,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       setLoading(false);
+      await setCookieFromUser(user);
     });
 
     return unsubscribe;
@@ -57,6 +59,7 @@ export function AuthProvider({ children }) {
 
   const signIn = async (email, password) => {
     setLoading(true);
+    setIsAuthReady(false);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
@@ -68,6 +71,7 @@ export function AuthProvider({ children }) {
 
   const signUp = async (email, password, name) => {
     setLoading(true);
+    setIsAuthReady(false);
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -98,6 +102,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
+    isAuthReady,
     signIn,
     signUp,
     logout,

@@ -52,7 +52,7 @@ Create a `.env` file in the root directory and add your configuration:
 
 ```bash
 # MongoDB Configuration
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=your_mongodb_connection_string 
 
 # Firebase Configuration
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
