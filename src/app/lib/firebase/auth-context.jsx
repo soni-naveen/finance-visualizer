@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
         document.cookie = `firebase-auth-token=${token}; path=/; max-age=3600; secure; samesite=strict`;
 
         // Wait a bit to ensure cookie is set before marking as ready
-        setTimeout(() => setIsAuthReady(true), 100);
+        setTimeout(() => setIsAuthReady(true), 150);
       } catch (error) {
         console.error("Error setting auth cookie:", error);
         setIsAuthReady(true);
