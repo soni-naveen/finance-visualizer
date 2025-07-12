@@ -27,6 +27,25 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  const setCookieFromUser = async (user) => {
+    if (user) {
+      try {
+        const token = await user.getIdToken();
+        document.cookie = `firebase-auth-token=${token}; path=/; max-age=3600; secure; samesite=strict`;
+
+        // Wait a bit to ensure cookie is set before marking as ready
+        setTimeout(() => setIsAuthReady(true), 150);
+      } catch (error) {
+        console.error("Error setting auth cookie:", error);
+        setIsAuthReady(true);
+      }
+    } else {
+      document.cookie =
+        "firebase-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      setIsAuthReady(true);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);

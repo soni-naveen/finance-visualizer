@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -9,11 +8,10 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { Button } from "../ui/button";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { formatCurrency } from "@/lib/utils/analytics";
 
-export function CategoryPieChart({ overall, monthly }) {
+export function CategoryPieChart({ data }) {
   const COLORS = [
     "#4F46E5", // Indigo
     "#EF4444", // Red
@@ -28,16 +26,12 @@ export function CategoryPieChart({ overall, monthly }) {
     "#84CC16", // Lime
   ];
 
-  const [activeView, setActiveView] = useState("monthly");
-
-  const selectedData = activeView === "overall" ? overall : monthly;
-
-  const chartData = selectedData.map((item, index) => ({
+  const chartData = data.map((item, index) => ({
     ...item,
     fill: COLORS[index % COLORS.length],
   }));
 
-  if (selectedData.length === 0) {
+  if (data.length === 0) {
     return (
       <Card>
         <CardHeader chart={true}>
@@ -52,29 +46,9 @@ export function CategoryPieChart({ overall, monthly }) {
 
   return (
     <Card>
-      <div className="flex flex-col xs:flex-row xs:items-center justify-between">
-        <CardHeader chart={true}>
-          <CardTitle>Expenses by Category</CardTitle>
-        </CardHeader>
-        <div className="flex gap-2 -translate-y-3 xs:translate-0 pl-4 xs:pl-0 xs:pr-4">
-          <Button
-            variant={activeView === "overall" ? "default" : "outline"}
-            size="sm"
-            className="text-xs leading-none"
-            onClick={() => setActiveView("overall")}
-          >
-            Overall
-          </Button>
-          <Button
-            variant={activeView === "monthly" ? "default" : "outline"}
-            size="sm"
-            className="text-xs leading-none"
-            onClick={() => setActiveView("monthly")}
-          >
-            This month
-          </Button>
-        </div>
-      </div>
+      <CardHeader chart={true}>
+        <CardTitle>Expenses by Category</CardTitle>
+      </CardHeader>
       <CardContent chart={true}>
         <ChartContainer config={{}} className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">

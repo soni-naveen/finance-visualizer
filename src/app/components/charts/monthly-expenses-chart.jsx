@@ -43,11 +43,7 @@ export function MonthlyExpensesChart({ data }) {
           }}
           className="h-[300px] w-full"
         >
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-            className="-translate-x-2"
-          >
+          <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
               <XAxis
                 dataKey="monthLabel"
@@ -68,7 +64,7 @@ export function MonthlyExpensesChart({ data }) {
               <Bar
                 dataKey="expenses"
                 fill="var(--color-expenses)"
-                radius={[2, 2, 0, 0]}
+                radius={[4, 4, 0, 0]}
               />
             </BarChart>
           </ResponsiveContainer>

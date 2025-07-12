@@ -16,11 +16,7 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import {
-  formatCurrency,
-  formatMonth,
-  getCurrentMonthString,
-} from "@/lib/utils/analytics";
+import { formatCurrency } from "@/lib/utils/analytics";
 import { Trash2 } from "lucide-react";
 import { deleteAllBudgets } from "@/lib/actions/budgets";
 import { useToast } from "@/hooks/use-toast";
@@ -40,18 +36,16 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  const chartData = budgets
-    .filter((budget) => budget.month === getCurrentMonthString().slice(0, 7))
-    .map((budget) => {
-      const actual =
-        actualSpending.find((a) => a.category === budget.category)?.total || 0;
-      return {
-        category: budget.category,
-        budget: budget.amount,
-        actual: actual,
-        remaining: Math.max(0, budget.amount - actual),
-      };
-    });
+  const chartData = budgets.map((budget) => {
+    const actual =
+      actualSpending.find((a) => a.category === budget.category)?.total || 0;
+    return {
+      category: budget.category,
+      budget: budget.amount,
+      actual: actual,
+      remaining: Math.max(0, budget.amount - actual),
+    };
+  });
 
   const handleDeleteAll = async () => {
     setLoading(true);
@@ -83,10 +77,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
     <>
       <Card>
         <CardHeader chart={true}>
-          <CardTitle>Budget vs Actual Spending </CardTitle>
-          <p className="text-xs text-muted-foreground leading-none">
-            This month
-          </p>
+          <CardTitle>Budget vs Actual Spending</CardTitle>
         </CardHeader>
         <CardContent chart={true}>
           <ChartContainer
@@ -102,11 +93,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
             }}
             className="h-[300px] w-full"
           >
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              className="-translate-x-3"
-            >
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData}>
                 <XAxis
                   dataKey="category"
