@@ -141,7 +141,10 @@ export default function DashboardClient({ transactions, budgets }) {
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <MonthlyExpensesChart data={monthlySummary} />
-          <CategoryPieChart data={categorySummary} />
+          <CategoryPieChart
+            overall={categorySummary}
+            monthly={currentMonthCategorySummary}
+          />
         </div>
 
         {/* Budget Comparison */}
