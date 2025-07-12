@@ -180,40 +180,45 @@ export default function DashboardClient({ transactions, budgets }) {
                   <div>
                     <h4 className="font-medium mb-2">Budget Status</h4>
                     <div className="space-y-2">
-                      {budgets.map((budget) => {
-                        const actual =
-                          currentMonthCategorySummary.find(
-                            (c) => c.category === budget.category
-                          )?.total || 0;
-                        const percentage = (actual / budget.amount) * 100;
-                        const isOverBudget = percentage > 100;
+                      {budgets
+                        .filter(
+                          (budget) =>
+                            budget.month === getCurrentMonthString().slice(0, 7)
+                        )
+                        .map((budget) => {
+                          const actual =
+                            currentMonthCategorySummary.find(
+                              (c) => c.category === budget.category
+                            )?.total || 0;
+                          const percentage = (actual / budget.amount) * 100;
+                          const isOverBudget = percentage > 100;
 
-                        return (
-                          <div
-                            key={budget._id}
-                            className="flex justify-between items-center"
-                          >
-                            <span className="text-xs xs:text-sm">
-                              {budget.category}
-                            </span>
-                            <div className="flex items-center space-x-2">
+                          return (
+                            <div
+                              key={budget._id}
+                              className="flex justify-between items-center"
+                            >
                               <span className="text-xs xs:text-sm">
-                                {formatCurrency(actual)} /{" "}
-                                {formatCurrency(budget.amount)}
+                                {budget.category}
                               </span>
-                              <span
-                                className={`text-sm font-medium ${
-                                  isOverBudget
-                                    ? "text-red-600"
-                                    : "text-green-600"
-                                }`}
-                              >
-                                {percentage.toFixed(0)}%
-                              </span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-xs xs:text-sm">
+                                  {formatCurrency(actual)} /{" "}
+                                  {formatCurrency(budget.amount)}
+                                </span>
+                                <span
+                                  className={`text-sm font-medium ${
+                                    isOverBudget
+                                      ? "text-red-600"
+                                      : "text-green-600"
+                                  }`}
+                                >
+                                  {percentage.toFixed(0)}%
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
                     </div>
                   </div>
                 )}
