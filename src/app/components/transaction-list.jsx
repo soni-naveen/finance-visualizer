@@ -26,7 +26,7 @@ import {
 import { TransactionForm } from "./transaction-form";
 import {
   deleteTransaction,
-  deleteAllTransactions
+  deleteAllTransactions,
 } from "@/lib/actions/transactions";
 import { formatCurrency } from "@/lib/utils/analytics";
 import { Edit, Trash2 } from "lucide-react";
@@ -149,16 +149,17 @@ export function TransactionList({ transactions }) {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      <span
-                        className={
+                      <div
+                        className={`${
                           transaction.type === "income"
                             ? "text-green-600"
                             : "text-red-600"
-                        }
+                        } flex gap-x-[2px]
+                        `}
                       >
-                        {transaction.type === "income" ? "+" : "-"}
-                        {formatCurrency(transaction.amount)}
-                      </span>
+                        <p>{transaction.type === "income" ? "+" : "-"}</p>
+                        <p>{formatCurrency(transaction.amount)}</p>
+                      </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
