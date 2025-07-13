@@ -154,8 +154,7 @@ export function TransactionList({ transactions }) {
                           transaction.type === "income"
                             ? "text-green-600"
                             : "text-red-600"
-                        } flex gap-x-[2px]
-                        `}
+                        } flex gap-x-[2px] justify-end`}
                       >
                         <p>{transaction.type === "income" ? "+" : "-"}</p>
                         <p>{formatCurrency(transaction.amount)}</p>
