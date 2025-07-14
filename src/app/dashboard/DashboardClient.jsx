@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAuth } from "@/lib/firebase/auth-context";
-import { useAuthToken } from "@/hooks/use-auth-token";
+import { useAuth, useAuthToken } from "@/lib/firebase/auth-context";
 
 import {
   Card,
