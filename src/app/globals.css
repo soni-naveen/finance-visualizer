@@ -32,7 +32,7 @@ body {
   --color-chart-1: oklch(0.8 0.5 250);
   --color-chart-2: oklch(0.5 0.8 176);
   --color-chart-3: oklch(0.24 0.37 197);
-  --color-chart-4: oklch(0.66 0.74 100);
+  --color-chart-4: oklch(0.66 0.74 90);
   --color-chart-5: oklch(0.67 0.87 27);
   --color-sidebar-background: oklch(0.98 0 0);
   --color-sidebar-foreground: oklch(0.261 0.053 240);
