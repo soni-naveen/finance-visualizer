@@ -96,7 +96,7 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
               <div>
                 <h4 className="font-medium mb-1">Budget Status</h4>
                 <div className="overflow-x-auto">
-                  <div className="space-y-2 min-w-[500px]">
+                  <div className="pb-3 space-y-2 min-w-[500px]">
                     {budgets
                       .filter(
                         (budget) =>
