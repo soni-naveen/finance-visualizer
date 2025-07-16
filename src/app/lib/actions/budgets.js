@@ -80,6 +80,31 @@ export async function updateBudget(id, budget) {
   }
 }
 
+export async function deleteBudget(id) {
+  try {
+    const userId = await getUserId();
+    const client = await clientPromise;
+    const db = client.db("finance-app");
+
+    const result = await db.collection("budgets").deleteOne({
+      _id: new ObjectId(id),
+      userId,
+    });
+
+    if (result.deletedCount === 0) {
+      return { success: false, error: "Budget not found or unauthorized" };
+    }
+
+    revalidatePath("/dashboard");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting budget:", error);
+    return { success: false, error: "Failed to delete budget" };
+  }
+}
+
+
 export async function deleteAllBudgets() {
   try {
     const userId = await getUserId();

@@ -18,8 +18,8 @@ const CardHeader = ({ className, chart, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "flex flex-col space-y-1.5 xs:p-6",
-      chart ? "px-4 py-6" : "p-4",
+      "flex flex-col space-y-1.5",
+      chart ? "px-4 py-6 xs:p-6" : "p-4 xs:px-6 xs:pt-6 xs:pb-2",
       className
     )}
     {...props}
@@ -51,7 +51,7 @@ CardDescription.displayName = "CardDescription";
 const CardContent = ({ className, chart, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("xs:p-6 pt-0", chart ? "p-3" : "p-4", className)}
+    className={cn("xs:p-6", chart ? "p-3" : "p-4", className)}
     {...props}
   />
 );

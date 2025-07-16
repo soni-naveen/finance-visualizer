@@ -9,13 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-import { Button } from "@/components/ui/button";
 import { TransactionForm } from "@/components/transaction-form";
 import { BudgetForm } from "@/components/budget-form";
-import { TransactionList } from "@/components/transaction-list";
 import { MonthlyExpensesChart } from "@/components/charts/monthly-expenses-chart";
 import { CategoryPieChart } from "@/components/charts/category-pie-chart";
 import { BudgetComparisonChart } from "@/components/charts/budget-comparison-chart";
+import { TransactionList } from "@/components/transaction-list";
+import { BudgetList } from "@/components/budget-list";
 import { UserProfile } from "@/components/user-profile";
 import { AuthGuard } from "@/components/auth-guard";
 import {
@@ -29,7 +29,6 @@ import {
   TrendingUp,
   TrendingDown,
   PieChart,
-  Edit,
 } from "lucide-react";
 import Footer from "@/components/footer";
 
@@ -168,79 +167,10 @@ export default function DashboardClient({ transactions, budgets }) {
 
         {/* Spending Insights */}
         {currentMonthCategorySummary.length > 0 && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Spending Insights</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium mb-1">Top Spending Category</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {currentMonthCategorySummary[0]?.category} -{" "}
-                    {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
-                  </p>
-                </div>
-                {budgets.length > 0 && (
-                  <div>
-                    <h4 className="font-medium mb-2">Budget Status</h4>
-                    <div className="overflow-x-auto">
-                      <div className="space-y-2 min-w-[400px]">
-                        {budgets
-                          .filter(
-                            (budget) =>
-                              budget.month ===
-                              getCurrentMonthString().slice(0, 7)
-                          )
-                          .map((budget) => {
-                            const actual =
-                              currentMonthCategorySummary.find(
-                                (c) => c.category === budget.category
-                              )?.total || 0;
-                            const percentage = (actual / budget.amount) * 100;
-                            const isOverBudget = percentage > 100;
-
-                            return (
-                              <div
-                                key={budget._id}
-                                className="flex justify-between items-center"
-                              >
-                                <span className="text-xs xs:text-sm">
-                                  {budget.category}
-                                </span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-xs xs:text-sm">
-                                    {formatCurrency(actual)} /{" "}
-                                    {formatCurrency(budget.amount)}
-                                  </span>
-                                  <span
-                                    className={`text-sm font-medium ${
-                                      isOverBudget
-                                        ? "text-red-600"
-                                        : "text-green-600"
-                                    }`}
-                                  >
-                                    {percentage.toFixed(0)}%
-                                  </span>
-                                  <BudgetForm
-                                    budget={budget}
-                                    trigger={
-                                      <Button variant="outline" size="sm">
-                                        <Edit className="h-4 w-4" />
-                                      </Button>
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            );
-                          })}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <BudgetList
+            budgets={budgets}
+            currentMonthCategorySummary={currentMonthCategorySummary}
+          />
         )}
       </div>
       <Footer />
