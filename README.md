@@ -1,60 +1,59 @@
-# Personal Finance Visualizer
-A simple and responsive web application to track and visualize your personal finances. Built with **Next.js**, **React**, **MongoDB**, **Recharts**, **Firebase Authentication**, and **shadcn/ui**.
+# 💰 Personal Finance Visualizer
 
-Try it here : [financevisualizer.vercel.app](https://financevisualizer.vercel.app/)
+A simple, clean, and responsive web application to **track**, **categorize**, and **visualize** your personal finances. Built using **Next.js**, **React**, **MongoDB**, **Recharts**, and **Firebase Authentication**, and deployed on **Vercel**.
 
----
-
-## Features
-- **User Authentication**: Secure sign-in/sign-up with Firebase Authentication
-- **Protected Routes**: User-specific data with authentication-based access control
-- Add, edit, and delete transactions (with amount, date, and description)
-- Categorize transactions using predefined categories
-- View a transaction list with recent activity
-- Visualize monthly expenses using bar charts
-- Category-wise expense breakdown using pie charts
-- Set monthly budgets per category
-- Compare actual spending vs budgeted amount
-- Display summary cards for:
-  - Total expenses
-  - Category breakdown
-  - Recent transactions
-- Basic form validation and error handling
-- Clean and responsive UI
+🔗 **Live Demo**: [financevisualizer.vercel.app(https://financevisualizer.vercel.app/)
 
 ---
 
-## Tech Stack
-- **Framework**: Next.js (App Router)
-- **UI**: React, TailwindCSS, shadcn/ui
-- **Data Visualization**: Recharts
-- **Database**: MongoDB
-- **Authentication**: Firebase Authentication
+## ✨ Features
+
+- 🔐 **User Authentication** using Firebase (Email & Password)
+- 🔒 **Protected Routes** for user-specific data access
+- ➕ Add, 📝 Edit, and ❌ Delete transactions (amount, date, description)
+- 🗂️ Categorize transactions using predefined categories
+- 📃 View recent transactions in a list format
+- 📊 Visualize monthly expenses using **bar charts**
+- 🥧 Breakdown expenses by category using **pie charts**
+- 🎯 Set monthly **budgets per category**
+- 📉 Compare **actual spending vs. budget**
+- 📋 Summary cards for:
+  - Total Expenses  
+  - Category-wise Breakdown  
+  - Recent Transactions
+- ✅ Basic form validation and error handling
+- 📱 Fully responsive and accessible UI
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)
+- **UI**: [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/)
+- **Data Visualization**: [Recharts](https://recharts.org/)
+- **Database**: [MongoDB](https://www.mongodb.com/)
+- **Authentication**: [Firebase Authentication](https://firebase.google.com/products/auth)
 - **State Management**: React Hooks
+- **Deployment**: [Vercel](https://vercel.com/)
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
-### Clone the Repository
-```bash
+### 1. Clone the Repository
+
+``bash
 git clone https://github.com/soni-naveen/finance-visualizer.git
 cd finance-visualizer
-```
 
-### Install Dependencies
-```bash
+### 2. Install Dependencies
 npm install
-```
 
-### Configure Environment
-Create a `.env` file in the root directory and add your configuration:
-
-```bash
+### 3. Configure Environment Variables
 # MongoDB Configuration
 MONGODB_URI=your_mongodb_connection_string 
 
-# Firebase Configuration
+# Firebase Client-Side Configuration
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
@@ -62,22 +61,26 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
 
+# Firebase Admin SDK Configuration (for server-side use if needed)
 FIREBASE_PROJECT_ID=your_firebase_project_id
 FIREBASE_CLIENT_EMAIL=your_firebase_client_email
-FIREBASE_PRIVATE_KEY=your_private_key
-```
+FIREBASE_PRIVATE_KEY=your_firebase_private_key
 
-### Firebase Setup
-1. Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Authentication and configure your preferred sign-in methods (In this project: Email/Password)
-3. Get your Firebase configuration from Project Settings
-4. Add the configuration to your `.env` file
+### 4. 🔧 Firebase Setup
+Go to the Firebase Console and create a new project.
 
-### Run the App
-```bash
+Enable Authentication → Sign-in method → Enable Email/Password.
+
+Go to Project Settings → General → copy your Firebase config keys.
+
+Go to Service Accounts → Generate a new private key (for server-side use if needed).
+
+Add the config to your .env file as shown above.
+
+### 5. Run the Development Server
 npm run dev
-```
+Visit http://localhost:3000 in your browser to see the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+
+
