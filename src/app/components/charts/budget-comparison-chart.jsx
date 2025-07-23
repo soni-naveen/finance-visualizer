@@ -14,10 +14,7 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import {
-  formatCurrency,
-  getCurrentMonthString,
-} from "@/lib/utils/analytics";
+import { formatCurrency, getCurrentMonthString } from "@/lib/utils/analytics";
 
 export function BudgetComparisonChart({ budgets, actualSpending }) {
   const chartData = budgets
@@ -86,15 +83,15 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 />
                 <Legend />
                 <Bar
-                  dataKey="budget"
-                  fill="var(--color-budget)"
-                  name="Budget"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
                   dataKey="actual"
                   fill="var(--color-actual)"
                   name="Actual"
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar
+                  dataKey="budget"
+                  fill="var(--color-budget)"
+                  name="Budget"
                   radius={[4, 4, 0, 0]}
                 />
               </BarChart>

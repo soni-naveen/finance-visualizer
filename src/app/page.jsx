@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import {
   BarChart3,
   PieChart,
@@ -59,7 +60,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
+      <section className="container mx-auto px-4 pb-10 pt-20 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Master Your Finances Like Never Before
@@ -209,6 +210,31 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Snapshots Section */}
+      <section className="container mx-auto flex flex-col items-center gap-10 justify-center pt-10 pb-20 px-2 xs:px-4">
+        <Image
+          src="/cover-01.png"
+          alt="dashboard"
+          className="object-cover rounded-lg shadow-lg"
+          width={1000}
+          height={1000}
+        />
+        <Image
+          src="/cover-02.png"
+          alt="add transactions"
+          className="object-cover rounded-lg shadow-lg"
+          width={1000}
+          height={1000}
+        />
+        <Image
+          src="/cover-03.png"
+          alt="recent transactions"
+          className="object-cover rounded-lg shadow-lg"
+          width={1000}
+          height={1000}
+        />
       </section>
 
       {/* Security Section */}
