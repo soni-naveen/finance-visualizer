@@ -113,7 +113,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await signOut(auth);
-      router.push("/auth/signin");
+      router.push("/");
     } catch (error) {
       throw error;
     }

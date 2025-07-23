@@ -11,7 +11,7 @@ export function AuthGuard({ children }) {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/auth/signin");
+      router.push("/");
     }
   }, [user, loading, router]);
 
