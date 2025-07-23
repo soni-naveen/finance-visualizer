@@ -12,6 +12,7 @@ import {
   Target,
   ArrowRight,
   CheckCircle,
+  TrendingUp,
 } from "lucide-react";
 import Footer from "@/components/footer";
 
@@ -36,7 +37,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white/40 backdrop-blur-xl sticky top-0 w-full z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
@@ -246,11 +247,20 @@ export default function HomePage() {
           <h3 className="text-3xl font-bold text-gray-900 mb-6">
             Your Financial Data is Secure
           </h3>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-600 leading-relaxed mb-6">
             Each user has their own private space with bank-level encryption.
             You can only see and manage your own financial data. Your privacy
             and security are our top priorities.
           </p>
+          <Link href="/auth/signup">
+            <Button
+              size="lg"
+              className="bg-black text-white hover:bg-gray-600 px-8 py-3 text-lg"
+            >
+              Start Your Journey Today
+              <TrendingUp className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </section>
       <Footer />
