@@ -82,7 +82,7 @@ export default function SignInPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Sign In</CardTitle>
+          <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
           <CardDescription>
             Enter your credentials to access your financial dashboard
           </CardDescription>
@@ -138,18 +138,21 @@ export default function SignInPage() {
               )}
             </div>
 
+            <div className="text-right">
+              <Link
+                href="/auth/forgot-password"
+                className="text-sm text-blue-600 hover:underline"
+              >
+                Forgot your password?
+              </Link>
+            </div>
+
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 
           <div className="mt-6 text-center space-y-2">
-            <Link
-              href="/auth/forgot-password"
-              className="text-sm text-blue-600 hover:underline"
-            >
-              Forgot your password?
-            </Link>
             <p className="text-sm text-gray-600">
               Don&apos;t have an account?{" "}
               <Link

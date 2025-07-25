@@ -94,7 +94,7 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Create Account</CardTitle>
+          <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
           <CardDescription>
             Sign up to start tracking your finances
           </CardDescription>
@@ -189,7 +189,7 @@ export default function SignUpPage() {
               )}
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-1" disabled={loading}>
               {loading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
