@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -72,9 +72,12 @@ export default function ForgotPasswordPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <Mail className="w-6 h-6 text-green-600" />
+            </div>
             <CardTitle className="text-2xl">Check Your Email</CardTitle>
             <CardDescription>
-              We've sent a password reset link to {email}
+              We've sent a password reset link to <strong>{email}</strong>
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-4">
@@ -82,12 +85,25 @@ export default function ForgotPasswordPage() {
               Click the link in the email to reset your password. If you don't
               see the email, check your spam folder.
             </p>
-            <Link href="/auth/signin">
-              <Button variant="outline" className="w-full bg-transparent">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Sign In
-              </Button>
-            </Link>
+            <div className="pt-4">
+              <Link href="/auth/signin">
+                <Button variant="outline" className="w-full bg-transparent">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back to Sign In
+                </Button>
+              </Link>
+            </div>
+            <div className="text-center">
+              <button
+                onClick={() => {
+                  setSent(false);
+                  setEmail("");
+                }}
+                className="text-sm text-blue-600 hover:underline"
+              >
+                Try a different email address
+              </button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -107,14 +123,14 @@ export default function ForgotPasswordPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Email Address</Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={error ? "border-red-500" : ""}
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
               />
               {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
             </div>
