@@ -20,7 +20,9 @@ export function AuthGuard({ children }) {
   useEffect(() => {
     if (loading) return;
 
-    const isOnPublicAuthRoute = publicAuthRoutes.includes(pathname);
+    const isOnPublicAuthRoute = publicAuthRoutes.some(
+      (route) => pathname === route || pathname.startsWith(route + "/")
+    );
 
     if (user && isOnPublicAuthRoute) {
       router.replace("/dashboard");
