@@ -36,7 +36,9 @@ export function AuthGuard({ children }) {
   }
 
   // Prevent UI from rendering while redirecting
-  const isOnPublicAuthRoute = publicAuthRoutes.includes(pathname);
+  const isOnPublicAuthRoute = publicAuthRoutes.some(
+    (route) => pathname === route || pathname.startsWith(route + "/")
+  );
   if ((user && isOnPublicAuthRoute) || (!user && !isOnPublicAuthRoute)) {
     return null;
   }
