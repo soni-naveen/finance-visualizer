@@ -1,25 +1,41 @@
 "use client";
 
 import { useAuth } from "@/lib/firebase/auth-context";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Loading from "@/loading";
+
+const publicAuthRoutes = [
+  "/auth/signup",
+  "/auth/signin",
+  "/auth/forgot-password",
+  "/",
+];
 
 export function AuthGuard({ children }) {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push("/");
+    if (loading) return;
+
+    const isOnPublicAuthRoute = publicAuthRoutes.includes(pathname);
+
+    if (user && isOnPublicAuthRoute) {
+      router.replace("/dashboard");
+    } else if (!user && !isOnPublicAuthRoute) {
+      router.replace("/auth/signin");
     }
-  }, [user, loading, router]);
+  }, [user, loading, pathname, router]);
 
   if (loading) {
     return <Loading />;
   }
 
-  if (!user) {
+  // Prevent UI from rendering while redirecting
+  const isOnPublicAuthRoute = publicAuthRoutes.includes(pathname);
+  if ((user && isOnPublicAuthRoute) || (!user && !isOnPublicAuthRoute)) {
     return null;
   }
 
