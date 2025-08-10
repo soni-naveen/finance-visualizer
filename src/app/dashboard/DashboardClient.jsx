@@ -58,9 +58,6 @@ export default function DashboardClient({ transactions, budgets }) {
     (b) => b.month === getCurrentMonthString()
   );
 
-  console.log("Budgets", budgets);
-  console.log("Month Budgets", currentMonthBudgets);
-
   return (
     <AuthGuard>
       <div className="container mx-auto px-4 py-8">
