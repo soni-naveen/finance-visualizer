@@ -99,8 +99,7 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
                   <div className="pb-3 space-y-2 min-w-[500px]">
                     {budgets
                       .filter(
-                        (budget) =>
-                          budget.month === getCurrentMonthString().slice(0, 7)
+                        (budget) => budget.month === getCurrentMonthString()
                       )
                       .map((budget) => {
                         const actual =
@@ -189,34 +188,37 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
           </div>
         </CardContent>
       </Card>
-      <div className="flex justify-end mt-3">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm">
-              <Trash2 className="h-4 w-4" />
-              Delete All
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Delete All Budgets</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to delete all budgets? This action cannot
-                be undone.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => handleDeleteAll()}
-                className="bg-red-700 hover:bg-red-800"
-              >
-                {loading ? "Deleting..." : "Delete All"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
+
+      {budgets.length > 0 && (
+        <div className="flex justify-end mt-3">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm">
+                <Trash2 className="h-4 w-4" />
+                Delete All
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete All Budgets</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to delete all budgets? This action
+                  cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => handleDeleteAll()}
+                  className="bg-red-700 hover:bg-red-800"
+                >
+                  {loading ? "Deleting..." : "Delete All"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )}
     </>
   );
 }

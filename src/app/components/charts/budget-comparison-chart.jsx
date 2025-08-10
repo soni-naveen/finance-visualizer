@@ -18,7 +18,7 @@ import { formatCurrency, getCurrentMonthString } from "@/lib/utils/analytics";
 
 export function BudgetComparisonChart({ budgets, actualSpending }) {
   const chartData = budgets
-    .filter((budget) => budget.month === getCurrentMonthString().slice(0, 7))
+    .filter((budget) => budget.month === getCurrentMonthString())
     .map((budget) => {
       const actual =
         actualSpending.find((a) => a.category === budget.category)?.total || 0;
@@ -29,7 +29,6 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
         remaining: Math.max(0, budget.amount - actual),
       };
     });
-
   return (
     <>
       <Card>

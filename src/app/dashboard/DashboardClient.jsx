@@ -24,12 +24,7 @@ import {
   getCurrentMonthString,
   formatCurrency,
 } from "@/lib/utils/analytics";
-import {
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  PieChart,
-} from "lucide-react";
+import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
 import Footer from "@/components/footer";
 
 export default function DashboardClient({ transactions, budgets }) {
@@ -59,6 +54,12 @@ export default function DashboardClient({ transactions, budgets }) {
   const currentMonthCategorySummary = getCategorySummary(
     currentMonthTransactions
   );
+  const currentMonthBudgets = budgets.filter(
+    (b) => b.month === getCurrentMonthString()
+  );
+
+  console.log("Budgets", budgets);
+  console.log("Month Budgets", currentMonthBudgets);
 
   return (
     <AuthGuard>
@@ -153,7 +154,7 @@ export default function DashboardClient({ transactions, budgets }) {
         </div>
 
         {/* Budget Comparison */}
-        {currentMonthCategorySummary.length > 0 && (
+        {currentMonthBudgets.length > 0 && (
           <div className="mb-8">
             <BudgetComparisonChart
               budgets={budgets}
@@ -168,7 +169,7 @@ export default function DashboardClient({ transactions, budgets }) {
         {/* Spending Insights */}
         {currentMonthCategorySummary.length > 0 && (
           <BudgetList
-            budgets={budgets}
+            budgets={currentMonthBudgets}
             currentMonthCategorySummary={currentMonthCategorySummary}
           />
         )}
