@@ -153,7 +153,7 @@ export default function DashboardClient({ transactions, budgets }) {
         </div>
 
         {/* Budget Comparison */}
-        {budgets.length > 0 && (
+        {currentMonthCategorySummary.length > 0 && (
           <div className="mb-8">
             <BudgetComparisonChart
               budgets={budgets}
