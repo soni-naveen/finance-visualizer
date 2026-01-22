@@ -37,7 +37,7 @@ export default function DashboardClient({ transactions, budgets }) {
 
   const currentMonth = getCurrentMonthString();
   const currentMonthTransactions = transactions.filter((t) =>
-    t.date.startsWith(currentMonth)
+    t.date.startsWith(currentMonth),
   );
 
   const totalIncome = currentMonthTransactions
@@ -52,16 +52,16 @@ export default function DashboardClient({ transactions, budgets }) {
   const monthlySummary = getMonthlySummary(transactions);
   const categorySummary = getCategorySummary(transactions);
   const currentMonthCategorySummary = getCategorySummary(
-    currentMonthTransactions
+    currentMonthTransactions,
   );
   const currentMonthBudgets = budgets.filter(
-    (b) => b.month === getCurrentMonthString()
+    (b) => b.month === getCurrentMonthString(),
   );
 
   return (
     <AuthGuard>
       <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col gap-4 md:gap-0 md:flex-row justify-between md:items-center mb-8">
+        <div className="flex flex-col gap-7 md:gap-0 md:flex-row justify-between md:items-center mb-8">
           <div className="flex justify-between items-center">
             <div className="md:space-y-1">
               <h1 className="text-2xl md:text-3xl font-bold text-chart-3">
@@ -75,10 +75,14 @@ export default function DashboardClient({ transactions, budgets }) {
               <UserProfile className="text-lg md:hidden" />
             </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-2">
             <TransactionForm />
             <BudgetForm />
-            <UserProfile className="ml-1 text-lg hidden md:flex" />
+            <UserProfile className="ml-1 text-lg" />
+          </div>
+          <div className="fixed bottom-0 left-1/2 -translate-x-1/2 p-4 sm:p-5 z-50 bg-black/10 backdrop-blur-xl w-full flex justify-between md:hidden">
+            <BudgetForm />
+            <TransactionForm />
           </div>
         </div>
 
@@ -86,7 +90,9 @@ export default function DashboardClient({ transactions, budgets }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">Total Income</CardTitle>
+              <CardTitle className="font-medium text-muted-foreground text-base">
+                Total Income
+              </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -99,7 +105,9 @@ export default function DashboardClient({ transactions, budgets }) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">Total Expenses</CardTitle>
+              <CardTitle className="font-medium text-muted-foreground text-base">
+                Total Expenses
+              </CardTitle>
               <TrendingDown className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -112,7 +120,9 @@ export default function DashboardClient({ transactions, budgets }) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">Net Income</CardTitle>
+              <CardTitle className="font-medium text-muted-foreground text-base">
+                Net Income
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -129,7 +139,9 @@ export default function DashboardClient({ transactions, budgets }) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">Categories</CardTitle>
+              <CardTitle className="font-medium text-muted-foreground text-base">
+                Categories
+              </CardTitle>
               <PieChart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
