@@ -47,7 +47,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
               },
               actual: {
                 label: "Actual",
-                color: "var(--color-chart-4)",
+                color: "var(--color-chart-3)",
               },
             }}
             className="h-[300px] w-full"

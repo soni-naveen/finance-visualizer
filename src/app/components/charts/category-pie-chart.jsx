@@ -58,20 +58,20 @@ export function CategoryPieChart({ overall, monthly }) {
         </CardHeader>
         <div className="flex gap-2 -translate-y-3 xs:translate-0 pl-4 xs:pl-0 xs:pr-4">
           <Button
-            variant={activeView === "overall" ? "default" : "outline"}
-            size="sm"
-            className="text-xs leading-none"
-            onClick={() => setActiveView("overall")}
-          >
-            Overall
-          </Button>
-          <Button
             variant={activeView === "monthly" ? "default" : "outline"}
             size="sm"
             className="text-xs leading-none"
             onClick={() => setActiveView("monthly")}
           >
             This month
+          </Button>
+          <Button
+            variant={activeView === "overall" ? "default" : "outline"}
+            size="sm"
+            className="text-xs leading-none"
+            onClick={() => setActiveView("overall")}
+          >
+            All time
           </Button>
         </div>
       </div>

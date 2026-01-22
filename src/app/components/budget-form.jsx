@@ -102,7 +102,7 @@ export function BudgetForm({ budget, trigger }) {
   };
 
   const defaultTrigger = (
-    <Button className="text-xs xs:text-sm">
+    <Button variant="outline" className="text-xs xs:text-sm">
       {budget ? (
         <Edit className="h-4 w-4 mr-2" />
       ) : (

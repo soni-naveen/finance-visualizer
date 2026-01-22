@@ -6,8 +6,8 @@ const Card = ({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "rounded-lg border border-slate-200 bg-white text-card-foreground shadow-xs",
-      className
+      "rounded-lg border border-slate-200 bg-white text-card-foreground shadow-sm",
+      className,
     )}
     {...props}
   />
@@ -20,7 +20,7 @@ const CardHeader = ({ className, chart, ...props }, ref) => (
     className={cn(
       "flex flex-col space-y-1.5",
       chart ? "px-4 py-6 xs:p-6" : "p-4 xs:px-6 xs:pt-6 xs:pb-2",
-      className
+      className,
     )}
     {...props}
   />
@@ -32,7 +32,7 @@ const CardTitle = ({ className, ...props }, ref) => (
     ref={ref}
     className={cn(
       "text-xl font-semibold leading-none tracking-tight",
-      className
+      className,
     )}
     {...props}
   />
