@@ -46,7 +46,7 @@ export function TransactionList({ transactions }) {
       if (result.success) {
         toast({
           title: "Transaction deleted successfully",
-          variant: "success"
+          variant: "success",
         });
       } else {
         toast({
@@ -73,7 +73,7 @@ export function TransactionList({ transactions }) {
       if (result.success) {
         toast({
           title: "All transactions deleted successfully",
-          variant: "success"
+          variant: "success",
         });
       } else {
         toast({
@@ -136,8 +136,8 @@ export function TransactionList({ transactions }) {
                     <TableCell className="max-w-[200px] truncate">
                       {transaction.description}
                     </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{transaction.category}</Badge>
+                    <TableCell className="max-w-[200px] whitespace-nowrap">
+                      <Badge className="text-center" variant="outline">{transaction.category}</Badge>
                     </TableCell>
                     <TableCell>
                       <Badge
