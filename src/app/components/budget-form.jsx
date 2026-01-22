@@ -74,6 +74,7 @@ export function BudgetForm({ budget, trigger }) {
       if (result.success) {
         toast({
           title: `Budget ${budget ? "updated" : "created"} successfully`,
+          variant: "success",
         });
         setOpen(false);
         if (!budget) {
@@ -140,7 +141,7 @@ export function BudgetForm({ budget, trigger }) {
                     <SelectItem key={category} value={category}>
                       {category}
                     </SelectItem>
-                  )
+                  ),
                 )}
               </SelectContent>
             </Select>

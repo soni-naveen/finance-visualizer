@@ -46,6 +46,7 @@ export function TransactionList({ transactions }) {
       if (result.success) {
         toast({
           title: "Transaction deleted successfully",
+          variant: "success"
         });
       } else {
         toast({
@@ -72,6 +73,7 @@ export function TransactionList({ transactions }) {
       if (result.success) {
         toast({
           title: "All transactions deleted successfully",
+          variant: "success"
         });
       } else {
         toast({
@@ -215,17 +217,16 @@ export function TransactionList({ transactions }) {
       </Card>
       {/* View All Transactions and Delete All Transactions */}
       <div className="flex items-center gap-2 mt-3 justify-end">
-        {transactions.length > 10 && (
+        {transactions.length > 0 && (
           <div className="flex justify-center">
             <Button variant="outline" onClick={() => setShowAll(!showAll)}>
-              {showAll ? "Show Recent Only" : "View All Transactions"}
+              {showAll ? "Show Recent" : "View All"}
             </Button>
           </div>
         )}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm">
-              <Trash2 className="h-4 w-4" />
+            <Button variant="delete" size="sm">
               Delete All
             </Button>
           </AlertDialogTrigger>

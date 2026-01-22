@@ -32,6 +32,7 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
       if (result.success) {
         toast({
           title: "Budget deleted successfully",
+          variant: "success"
         });
       } else {
         toast({
@@ -57,7 +58,8 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
       const result = await deleteAllBudgets();
       if (result.success) {
         toast({
-          title: "Budgets deleted successfully",
+          title: "All Budgets deleted successfully",
+          variant: "success"
         });
       } else {
         toast({
@@ -193,8 +195,7 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
         <div className="flex justify-end mt-3">
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" size="sm">
-                <Trash2 className="h-4 w-4" />
+              <Button variant="delete" size="sm">
                 Delete All
               </Button>
             </AlertDialogTrigger>

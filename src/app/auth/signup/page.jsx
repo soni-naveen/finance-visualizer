@@ -69,6 +69,7 @@ export default function SignUpPage() {
       toast({
         title: "Success",
         description: "Account created successfully",
+        variant: "success"
       });
     } catch (error) {
       let errorMessage = "Failed to create account";

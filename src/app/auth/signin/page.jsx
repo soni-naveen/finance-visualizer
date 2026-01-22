@@ -57,6 +57,7 @@ export default function SignInPage() {
       toast({
         title: "Success",
         description: "Signed in successfully",
+        variant: "success"
       });
     } catch (error) {
       let errorMessage = "Invalid email or password";

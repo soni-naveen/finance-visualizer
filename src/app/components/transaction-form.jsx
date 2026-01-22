@@ -85,6 +85,7 @@ export function TransactionForm({ transaction, trigger }) {
           title: `Transaction ${
             transaction ? "updated" : "created"
           } successfully`,
+          variant: "success",
         });
         setOpen(false);
         if (!transaction) {

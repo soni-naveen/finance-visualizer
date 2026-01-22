@@ -5,7 +5,7 @@ import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { AlertTriangle } from "lucide-react";
 
-export default function Error({ error, reset }) {
+export default function Error({ error }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
