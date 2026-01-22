@@ -80,7 +80,7 @@ export default function DashboardClient({ transactions, budgets }) {
             <BudgetForm />
             <UserProfile className="ml-1 text-lg" />
           </div>
-          <div className="fixed bottom-0 left-1/2 -translate-x-1/2 p-4 sm:p-5 z-50 bg-black/10 backdrop-blur-xl w-full flex justify-between md:hidden">
+          <div className="fixed bottom-0 left-1/2 -translate-x-1/2 px-4 pt-4 pb-5 sm:px-5 pt-5 pb-6 z-50 bg-black/10 backdrop-blur-xl w-full flex justify-center gap-5 sm:gap-7 md:hidden">
             <BudgetForm />
             <TransactionForm />
           </div>

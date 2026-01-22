@@ -6,19 +6,19 @@ export default function Loading() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col gap-4 md:gap-0 md:flex-row justify-between md:items-center mb-8">
         <div className="flex justify-between items-center w-full">
-          <div className="md:space-y-1">
-            <Skeleton className="h-8 md:h-10 w-48 md:w-64" />
-            <Skeleton className="h-6 w-48 md:w-64" />
+          <div className="space-y-1">
+            <Skeleton className="h-8 md:h-10 w-52 md:w-64" />
+            <Skeleton className="h-6 w-48 md:w-56" />
           </div>
           <div className="md:hidden">
             <Skeleton className="h-10 w-10 rounded-full" />
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center hidden md:flex space-x-2">
           <Skeleton className="h-10 w-32" />
           <Skeleton className="h-10 w-32" />
-          <Skeleton className="h-10 w-10 rounded-full hidden md:flex" />
+          <Skeleton className="h-10 w-10 rounded-full" />
         </div>
       </div>
 
