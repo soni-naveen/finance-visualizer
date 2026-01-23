@@ -428,7 +428,7 @@ export function TransactionList({
       </Card>
       {/* View All Transactions and Delete All Transactions */}
       <div className="flex items-center gap-2 mt-3 justify-end">
-        {transactions.length > 10 && (
+        {displayedTransactions.length > 10 && (
           <div className="flex justify-center">
             <Button variant="outline" onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show Recent" : "View All"}
