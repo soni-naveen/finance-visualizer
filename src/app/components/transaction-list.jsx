@@ -52,9 +52,18 @@ export function TransactionList({
   const [showAll, setShowAll] = useState(false);
   const [loadingAll, setLoadingAll] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
+
+  function toDateInputValue(date) {
+    return date.toISOString().split("T")[0];
+  }
+
+  const today = new Date();
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(today.getFullYear() - 1);
+
   const [filters, setFilters] = useState({
-    startDate: "",
-    endDate: "",
+    startDate: toDateInputValue(oneYearAgo),
+    endDate: toDateInputValue(today),
     minAmount: "",
     maxAmount: "",
     category: "all",
@@ -198,9 +207,9 @@ export function TransactionList({
         </CardHeader>
         <div
           className={`
-    overflow-hidden transition-all duration-300 ease-in-out
-    ${openFilters ? "max-h-[500px] opacity-100 py-2 md:py-4" : "max-h-0 opacity-0 py-0"}
-  `}
+            overflow-hidden transition-all duration-300 ease-in-out
+            ${openFilters ? "max-h-[500px] opacity-100 pt-2 md:pt-4" : "max-h-0 opacity-0 py-0"}
+          `}
         >
           <div className="grid grid-cols-1 md:grid-cols-4 xl:grid-cols-7 gap-3 text-sm sm:text-base px-4">
             {/* Start Date */}
@@ -301,6 +310,11 @@ export function TransactionList({
               Reset Filters
             </Button>
           </div>
+          <p className={`text-xs sm:text-sm text-center text-muted-foreground pt-4`}>
+            {isFiltering && filteredCount < totalCount
+              ? `Showing ${filteredCount} of ${totalCount} transactions`
+              : null}
+          </p>
         </div>
         {displayedTransactions.length === 0 ? (
           <p className="text-muted-foreground text-xs sm:text-sm p-4 text-center mb-4">
@@ -308,13 +322,6 @@ export function TransactionList({
           </p>
         ) : (
           <CardContent>
-            <p
-              className={`text-xs sm:text-sm text-center text-muted-foreground ${isFiltering ? "mb-4" : "mb-0"}`}
-            >
-              {isFiltering
-                ? `Showing ${filteredCount} of ${totalCount} transactions`
-                : null}
-            </p>
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader className="bg-neutral-100">
