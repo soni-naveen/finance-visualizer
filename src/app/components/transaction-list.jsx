@@ -53,10 +53,6 @@ export function TransactionList({
   const [loadingAll, setLoadingAll] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
 
-  useEffect(() => {
-   setShowAll(false);
-  }, [filters]);
-
   function toDateInputValue(date) {
     return date.toISOString().split("T")[0];
   }
@@ -73,6 +69,10 @@ export function TransactionList({
     category: "all",
     type: "all",
   });
+
+  useEffect(() => {
+    setShowAll(false);
+  }, [filters]);
 
   const isFiltering =
     filters.startDate ||
