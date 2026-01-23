@@ -298,8 +298,8 @@ export function TransactionList({
               variant="secondary"
               onClick={() =>
                 setFilters({
-                  startDate: "",
-                  endDate: "",
+                  startDate: toDateInputValue(oneYearAgo),
+                  endDate: toDateInputValue(today),
                   minAmount: "",
                   maxAmount: "",
                   category: "all",
