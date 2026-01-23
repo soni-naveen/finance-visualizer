@@ -94,7 +94,7 @@ export function BudgetList({
     <>
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>Spending Insights</CardTitle>
+          <CardTitle className="pt-2">Spending Insights</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-5">
