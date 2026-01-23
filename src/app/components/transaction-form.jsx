@@ -19,15 +19,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  createTransaction,
-  updateTransaction,
-} from "@/lib/actions/transactions";
 import { CATEGORIES } from "@/lib/data";
 import { Plus, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-export function TransactionForm({ transaction, trigger }) {
+export function TransactionForm({
+  transaction,
+  trigger,
+  onCreated,
+  onUpdated,
+}) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -65,49 +66,59 @@ export function TransactionForm({ transaction, trigger }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setLoading(true);
 
     try {
-      const transactionData = {
+      const payload = {
         ...formData,
         amount: Number(formData.amount),
       };
 
-      const result = transaction
-        ? await updateTransaction(transaction._id, transactionData)
-        : await createTransaction(transactionData);
+      const res = await fetch(
+        transaction
+          ? `/api/transactions/${transaction._id}`
+          : "/api/transactions",
+        {
+          method: transaction ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(payload),
+        },
+      );
 
-      if (result.success) {
-        toast({
-          title: `Transaction ${
-            transaction ? "updated" : "created"
-          } successfully`,
-          variant: "success",
-        });
-        setOpen(false);
-        if (!transaction) {
-          setFormData({
-            amount: "",
-            date: new Date().toISOString().split("T")[0],
-            description: "",
-            category: "",
-            type: "expense",
-          });
-        }
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to save transaction");
+      }
+
+      toast({
+        title: `Transaction ${
+          transaction ? "updated" : "created"
+        } successfully`,
+        variant: "success",
+      });
+
+      if (transaction) {
+        onUpdated?.(data);
       } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
+        onCreated?.(data);
+        setFormData({
+          amount: "",
+          date: new Date().toISOString().split("T")[0],
+          description: "",
+          category: "",
+          type: "expense",
         });
       }
-    } catch (error) {
+
+      setOpen(false);
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to save transaction",
+        description: err.message || "Failed to save transaction",
         variant: "destructive",
       });
     } finally {

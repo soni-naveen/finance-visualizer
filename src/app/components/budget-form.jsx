@@ -18,13 +18,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { createBudget, updateBudget } from "@/lib/actions/budgets";
 import { CATEGORIES } from "@/lib/data";
 import { getCurrentMonthString } from "@/lib/utils/analytics";
 import { Plus, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-export function BudgetForm({ budget, trigger }) {
+export function BudgetForm({ budget, trigger, onCreated, onUpdated }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,39 +61,48 @@ export function BudgetForm({ budget, trigger }) {
     setLoading(true);
 
     try {
-      const budgetData = {
+      const payload = {
         ...formData,
         amount: Number(formData.amount),
       };
 
-      const result = budget
-        ? await updateBudget(budget._id, budgetData)
-        : await createBudget(budgetData);
+      const res = await fetch(
+        budget ? `/api/budgets/${budget._id}` : "/api/budgets",
+        {
+          method: budget ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(payload),
+        },
+      );
 
-      if (result.success) {
-        toast({
-          title: `Budget ${budget ? "updated" : "created"} successfully`,
-          variant: "success",
-        });
-        setOpen(false);
-        if (!budget) {
-          setFormData({
-            category: "",
-            amount: "",
-            month: getCurrentMonthString(),
-          });
-        }
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to save budget");
+      }
+
+      toast({
+        title: `Budget ${budget ? "updated" : "created"} successfully`,
+        variant: "success",
+      });
+
+      if (budget) {
+        onUpdated?.(data);
       } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
+        onCreated?.(data);
+        setFormData({
+          category: "",
+          amount: "",
+          month: getCurrentMonthString(),
         });
       }
-    } catch (error) {
+
+      setOpen(false);
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to save budget",
+        description: err.message || "Failed to save budget",
         variant: "destructive",
       });
     } finally {

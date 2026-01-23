@@ -15,69 +15,80 @@ import {
 } from "./ui/alert-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { BudgetForm } from "./budget-form";
-import { deleteBudget, deleteAllBudgets } from "@/lib/actions/budgets";
 import { Edit, Trash2 } from "lucide-react";
 import { formatCurrency, getCurrentMonthString } from "@/lib/utils/analytics";
 import { useToast } from "@/hooks/use-toast";
 
-export function BudgetList({ budgets, currentMonthCategorySummary }) {
+export function BudgetList({
+  budgets,
+  currentMonthCategorySummary,
+  onDeleted,
+  onDeleteAll,
+  onUpdated,
+}) {
   const [deletingId, setDeletingId] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loadingAll, setLoadingAll] = useState(false);
   const { toast } = useToast();
 
-  const handleDelete = async (id) => {
+  async function handleDelete(id) {
     setDeletingId(id);
     try {
-      const result = await deleteBudget(id);
-      if (result.success) {
-        toast({
-          title: "Budget deleted successfully",
-          variant: "success"
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
+      const res = await fetch(`/api/budgets/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete budget");
       }
-    } catch (error) {
+
+      toast({
+        title: "Budget deleted successfully",
+        variant: "success",
+      });
+
+      onDeleted?.(id);
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to delete budget",
+        description: err.message,
         variant: "destructive",
       });
     } finally {
       setDeletingId(null);
     }
-  };
+  }
 
-  const handleDeleteAll = async () => {
-    setLoading(true);
+  async function handleDeleteAllBudgets() {
+    setLoadingAll(true);
     try {
-      const result = await deleteAllBudgets();
-      if (result.success) {
-        toast({
-          title: "All Budgets deleted successfully",
-          variant: "success"
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
+      const res = await fetch("/api/budgets", {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete budgets");
       }
-    } catch (error) {
+
+      toast({
+        title: "All budgets deleted successfully",
+        variant: "success",
+      });
+
+      onDeleteAll?.();
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to delete budgets",
+        description: err.message,
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingAll(false);
     }
-  };
+  }
 
   return (
     <>
@@ -101,12 +112,12 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
                   <div className="pb-3 space-y-2 min-w-[500px]">
                     {budgets
                       .filter(
-                        (budget) => budget.month === getCurrentMonthString()
+                        (budget) => budget.month === getCurrentMonthString(),
                       )
                       .map((budget) => {
                         const actual =
                           currentMonthCategorySummary.find(
-                            (c) => c.category === budget.category
+                            (c) => c.category === budget.category,
                           )?.total || 0;
                         const percentage = (actual / budget.amount) * 100;
                         const isOverBudget = percentage > 100;
@@ -136,6 +147,7 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
                               <div className="space-x-2">
                                 <BudgetForm
                                   budget={budget}
+                                  onUpdated={onUpdated}
                                   trigger={
                                     <Button variant="outline" size="sm">
                                       <Edit className="h-4 w-4" />
@@ -210,10 +222,10 @@ export function BudgetList({ budgets, currentMonthCategorySummary }) {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
-                  onClick={() => handleDeleteAll()}
+                  onClick={() => handleDeleteAllBudgets()}
                   className="bg-red-700 hover:bg-red-800"
                 >
-                  {loading ? "Deleting..." : "Delete All"}
+                  {loadingAll ? "Deleting..." : "Delete All"}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

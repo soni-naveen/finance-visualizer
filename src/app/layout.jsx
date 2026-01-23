@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/lib/firebase/auth-context";
+import { AuthGuard } from "./components/auth-guard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,8 +59,10 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <AuthProvider>
-          <main className="min-h-screen bg-slate-50">{children}</main>
-          <Toaster />
+          <AuthGuard>
+            <main className="min-h-screen bg-slate-50">{children}</main>
+            <Toaster />
+          </AuthGuard>
         </AuthProvider>
       </body>
     </html>

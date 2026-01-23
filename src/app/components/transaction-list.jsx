@@ -24,74 +24,82 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { TransactionForm } from "./transaction-form";
-import {
-  deleteTransaction,
-  deleteAllTransactions,
-} from "@/lib/actions/transactions";
 import { formatCurrency } from "@/lib/utils/analytics";
 import { Edit, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatFullDate } from "@/lib/utils/analytics";
 
-export function TransactionList({ transactions }) {
+export function TransactionList({
+  transactions,
+  onDeleted,
+  onDeleteAll,
+  onUpdated,
+  onCreated
+}) {
   const [deletingId, setDeletingId] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingAll, setLoadingAll] = useState(false);
   const { toast } = useToast();
 
-  const handleDelete = async (id) => {
+  async function handleDelete(id) {
     setDeletingId(id);
     try {
-      const result = await deleteTransaction(id);
-      if (result.success) {
-        toast({
-          title: "Transaction deleted successfully",
-          variant: "success",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
+      const res = await fetch(`/api/transactions/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete transaction");
       }
-    } catch (error) {
+
+      toast({
+        title: "Transaction deleted successfully",
+        variant: "success",
+      });
+
+      onDeleted?.(id);
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to delete transaction",
+        description: err.message,
         variant: "destructive",
       });
     } finally {
       setDeletingId(null);
     }
-  };
+  }
 
-  const handleDeleteAll = async () => {
-    setLoading(true);
+  async function handleDeleteAll() {
+    setLoadingAll(true);
     try {
-      const result = await deleteAllTransactions();
-      if (result.success) {
-        toast({
-          title: "All transactions deleted successfully",
-          variant: "success",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result.error,
-          variant: "destructive",
-        });
+      const res = await fetch("/api/transactions", {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete transactions");
       }
-    } catch (error) {
+
+      toast({
+        title: "All transactions deleted successfully",
+        variant: "success",
+      });
+
+      onDeleteAll?.();
+    } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to delete transactions",
+        description: err.message,
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingAll(false);
     }
-  };
+  }
 
   const displayedTransactions = showAll
     ? transactions
@@ -102,7 +110,7 @@ export function TransactionList({ transactions }) {
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-8">
           <p className="text-muted-foreground mb-4">No transactions found.</p>
-          <TransactionForm />
+          <TransactionForm onCreated={onCreated} />
         </CardContent>
       </Card>
     );
@@ -137,7 +145,9 @@ export function TransactionList({ transactions }) {
                       {transaction.description}
                     </TableCell>
                     <TableCell className="max-w-[200px] whitespace-nowrap">
-                      <Badge className="text-center" variant="outline">{transaction.category}</Badge>
+                      <Badge className="text-center" variant="outline">
+                        {transaction.category}
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       <Badge
@@ -166,6 +176,7 @@ export function TransactionList({ transactions }) {
                       <div className="flex space-x-2">
                         <TransactionForm
                           transaction={transaction}
+                          onUpdated={onUpdated}
                           trigger={
                             <Button variant="outline" size="sm">
                               <Edit className="h-4 w-4" />
@@ -217,7 +228,7 @@ export function TransactionList({ transactions }) {
       </Card>
       {/* View All Transactions and Delete All Transactions */}
       <div className="flex items-center gap-2 mt-3 justify-end">
-        {transactions.length > 0 && (
+        {transactions.length > 10 && (
           <div className="flex justify-center">
             <Button variant="outline" onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show Recent" : "View All"}
@@ -244,7 +255,7 @@ export function TransactionList({ transactions }) {
                 onClick={() => handleDeleteAll()}
                 className="bg-red-700 hover:bg-red-800"
               >
-                {loading ? "Deleting..." : "Delete"}
+                {loadingAll ? "Deleting..." : "Delete"}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
