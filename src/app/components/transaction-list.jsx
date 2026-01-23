@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import {
@@ -52,6 +52,10 @@ export function TransactionList({
   const [showAll, setShowAll] = useState(false);
   const [loadingAll, setLoadingAll] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
+
+  useEffect(() => {
+   setShowAll(false);
+  }, [filters]);
 
   function toDateInputValue(date) {
     return date.toISOString().split("T")[0];
@@ -428,7 +432,7 @@ export function TransactionList({
       </Card>
       {/* View All Transactions and Delete All Transactions */}
       <div className="flex items-center gap-2 mt-3 justify-end">
-        {displayedTransactions.length > 10 && (
+        {filteredTransactions.length > 10 && (
           <div className="flex justify-center">
             <Button variant="outline" onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show Recent" : "View All"}
