@@ -1,3 +1,38 @@
+import { format, subMonths, startOfMonth, endOfMonth } from "date-fns";
+
+export function getMonthOptions() {
+  const options = [];
+
+  // Current month
+  options.push({
+    label: "This month",
+    value: "current",
+    from: startOfMonth(new Date()),
+    to: endOfMonth(new Date()),
+  });
+
+  // Previous 6 months
+  for (let i = 1; i <= 6; i++) {
+    const date = subMonths(new Date(), i);
+    options.push({
+      label: format(date, "MMM yyyy"),
+      value: format(date, "yyyy-MM"),
+      from: startOfMonth(date),
+      to: endOfMonth(date),
+    });
+  }
+
+  // All time
+  options.push({
+    label: "All time",
+    value: "all",
+    from: null,
+    to: null,
+  });
+
+  return options;
+}
+
 export function getCategorySummary(transactions) {
   const summary = new Map();
 

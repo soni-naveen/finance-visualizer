@@ -9,11 +9,21 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { formatCurrency } from "@/lib/utils/analytics";
+import {
+  formatCurrency,
+  getCategorySummary,
+  getMonthOptions,
+} from "@/lib/utils/analytics";
 
-export function CategoryPieChart({ overall, monthly }) {
+export function CategoryPieChart({ transactions }) {
   const COLORS = [
     "#4F46E5", // Indigo
     "#EF4444", // Red
@@ -28,27 +38,29 @@ export function CategoryPieChart({ overall, monthly }) {
     "#84CC16", // Lime
   ];
 
-  const [activeView, setActiveView] = useState("monthly");
+  const monthOptions = getMonthOptions();
+  const [selectedRange, setSelectedRange] = useState("current");
 
-  const selectedData = activeView === "overall" ? overall : monthly;
+  const activeOption = monthOptions.find((opt) => opt.value === selectedRange);
 
-  const chartData = selectedData.map((item, index) => ({
+  // FILTER
+  const filterTransactions = transactions.filter((t) => {
+    if (t.type !== "expense") return false;
+
+    if (!activeOption?.from || !activeOption?.to) return true;
+
+    const date = new Date(t.date);
+    if (isNaN(date)) return false;
+
+    return date >= activeOption.from && date <= activeOption.to;
+  });
+
+  const chartSource = getCategorySummary(filterTransactions);
+
+  const chartData = chartSource.map((item, index) => ({
     ...item,
     fill: COLORS[index % COLORS.length],
   }));
-
-  if (selectedData.length === 0) {
-    return (
-      <Card>
-        <CardHeader chart={true}>
-          <CardTitle>Expenses by Category</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col items-center justify-center py-8">
-          <p className="text-muted-foreground mb-4">No data to display.</p>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card>
@@ -57,57 +69,62 @@ export function CategoryPieChart({ overall, monthly }) {
           <CardTitle>Expenses by Category</CardTitle>
         </CardHeader>
         <div className="flex gap-2 -translate-y-3 xs:translate-0 pl-4 xs:pl-0 xs:pr-4">
-          <Button
-            variant={activeView === "monthly" ? "default" : "outline"}
-            size="sm"
-            className="text-xs leading-none"
-            onClick={() => setActiveView("monthly")}
-          >
-            This month
-          </Button>
-          <Button
-            variant={activeView === "overall" ? "default" : "outline"}
-            size="sm"
-            className="text-xs leading-none"
-            onClick={() => setActiveView("overall")}
-          >
-            All time
-          </Button>
+          <Select value={selectedRange} onValueChange={setSelectedRange}>
+            <SelectTrigger className="w-fit h-fit text-xs px-2 gap-2">
+              <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+              {monthOptions.map((opt) => (
+                <SelectItem className="text-xs" key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
-      <CardContent chart={true}>
-        <ChartContainer config={{}} className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                fontSize={12}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="total"
-                nameKey="category"
-                className="-translate-y-2"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <ChartLegend
-                content={<ChartLegendContent nameKey="category" />}
-                className="max-w-full sm:max-w-[90%] lg:max-w-full xl:max-w-[90%] mx-auto flex flex-wrap justify-center gap-x-4 leading-0 sm:leading-none"
-              />
-              <ChartTooltip
-                content={<ChartTooltipContent nameKey="category" />}
-                formatter={(value, name) => [formatCurrency(value), ` ${name}`]}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
+      {chartData.length === 0 ? (
+        <CardContent className="flex flex-col items-center justify-center py-8">
+          <p className="text-muted-foreground mb-4">No data to display.</p>
+        </CardContent>
+      ) : (
+        <CardContent chart={true}>
+          <ChartContainer config={{}} className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  fontSize={12}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="total"
+                  nameKey="category"
+                  className="-translate-y-2"
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <ChartLegend
+                  content={<ChartLegendContent nameKey="category" />}
+                  className="max-w-full sm:max-w-[90%] lg:max-w-full xl:max-w-[90%] mx-auto flex flex-wrap justify-center gap-x-4 leading-0 sm:leading-none"
+                />
+                <ChartTooltip
+                  content={<ChartTooltipContent nameKey="category" />}
+                  formatter={(value, name) => [
+                    formatCurrency(value),
+                    ` ${name}`,
+                  ]}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      )}
     </Card>
   );
 }

@@ -88,7 +88,6 @@ export default function DashboardClient() {
 
   const netIncome = totalIncome - totalExpenses;
   const monthlySummary = getMonthlySummary(transactions);
-  const categorySummary = getCategorySummary(transactions);
   const currentMonthCategorySummary = getCategorySummary(
     currentMonthTransactions,
   );
@@ -202,10 +201,7 @@ export default function DashboardClient() {
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <MonthlyExpensesChart data={monthlySummary} />
-          <CategoryPieChart
-            overall={categorySummary}
-            monthly={currentMonthCategorySummary}
-          />
+          <CategoryPieChart transactions={transactions} />
         </div>
 
         {/* Budget Comparison */}

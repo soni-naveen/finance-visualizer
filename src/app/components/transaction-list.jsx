@@ -144,8 +144,12 @@ export function TransactionList({
     }
   }
 
+  const sortedTransactions = [...transactions].sort(
+    (a, b) => new Date(b.date) - new Date(a.date),
+  );
+
   // FILTER
-  const filteredTransactions = transactions.filter((t) => {
+  const filteredTransactions = sortedTransactions.filter((t) => {
     // Date filter
     if (filters.startDate) {
       if (new Date(t.date) < new Date(filters.startDate)) return false;
@@ -209,6 +213,7 @@ export function TransactionList({
             </span>
           </Button>
         </CardHeader>
+        {/* ========== FILTERS ========= */}
         <div
           className={`
             overflow-hidden transition-all duration-300 ease-in-out
@@ -314,7 +319,9 @@ export function TransactionList({
               Reset Filters
             </Button>
           </div>
-          <p className={`text-xs sm:text-sm text-center text-muted-foreground pt-4`}>
+          <p
+            className={`text-xs sm:text-sm text-center text-muted-foreground pt-4`}
+          >
             {isFiltering && filteredCount < totalCount
               ? `Showing ${filteredCount} of ${totalCount} transactions`
               : null}
