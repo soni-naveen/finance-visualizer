@@ -9,9 +9,6 @@ body {
 }
 
 :root {
-  /* breakpoints */
-  --breakpoint-xs: 480px;
-
   /* core colors */
   --background: oklch(1 0 0);
   --foreground: oklch(0.039 0 0);
@@ -63,7 +60,7 @@ body {
 }
 
 @theme {
-  --breakpoint-xs: var(--breakpoint-xs);
+  --breakpoint-xs: 480px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
