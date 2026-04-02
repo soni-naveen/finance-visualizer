@@ -55,8 +55,8 @@ export function TransactionList({
 
   function toDateInputValue(date) {
     return new Date(date).toLocaleDateString("en-CA", {
-     timeZone: "Asia/Kolkata",
-   });
+      timeZone: "Asia/Kolkata",
+    });
   }
 
   const today = new Date();
@@ -344,7 +344,7 @@ export function TransactionList({
                     <TableHead>Category</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead className="text-right">Amount</TableHead>
-                    <TableHead className="w-[100px]">Actions</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -357,7 +357,7 @@ export function TransactionList({
                         {transaction.description}
                       </TableCell>
                       <TableCell className="max-w-[200px] whitespace-nowrap">
-                        <Badge className="text-center" variant="outline">
+                        <Badge className="text-center font-normal" variant="outline">
                           {transaction.category}
                         </Badge>
                       </TableCell>
@@ -368,6 +368,7 @@ export function TransactionList({
                               ? "default"
                               : "secondary"
                           }
+                          className="font-normal"
                         >
                           {transaction.type}
                         </Badge>
@@ -385,7 +386,7 @@ export function TransactionList({
                         </div>
                       </TableCell>
                       <TableCell>
-                        <div className="flex space-x-2">
+                        <div className="flex justify-end space-x-2">
                           <TransactionForm
                             transaction={transaction}
                             onUpdated={onUpdated}
