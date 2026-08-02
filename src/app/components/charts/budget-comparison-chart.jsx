@@ -13,8 +13,22 @@ import {
   XAxis,
   YAxis,
   Legend,
+  Rectangle,
 } from "recharts";
 import { formatCurrency, getCurrentMonthString } from "@/lib/utils/analytics";
+
+const CustomBar = (props) => {
+  const { fill, payload } = props;
+
+  return (
+    <Rectangle
+      {...props}
+      fill={
+        payload.actual > payload.budget ? "#ff9999" : fill // Default color
+      }
+    />
+  );
+};
 
 export function BudgetComparisonChart({ budgets, actualSpending }) {
   const chartData = budgets
@@ -43,11 +57,11 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
             config={{
               budget: {
                 label: "Budget",
-                color: "var(--color-chart-2)",
+                color: "#298c8c",
               },
               actual: {
                 label: "Actual",
-                color: "var(--color-chart-3)",
+                color: "#9fc8c8",
               },
             }}
             className="h-[300px] w-full"
@@ -86,6 +100,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                   fill="var(--color-actual)"
                   name="Actual"
                   radius={[4, 4, 0, 0]}
+                  shape={<CustomBar />}
                 />
                 <Bar
                   dataKey="budget"

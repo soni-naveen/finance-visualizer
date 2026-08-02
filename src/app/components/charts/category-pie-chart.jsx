@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer } from "recharts";
 import {
   formatCurrency,
   getCategorySummary,
@@ -25,11 +25,11 @@ import {
 
 export function CategoryPieChart({ transactions }) {
   const COLORS = [
-    "#4F46E5", // Indigo
+    "#6666ff", // Indigo
     "#EF4444", // Red
     "#10B981", // Green
     "#00FF00", // bright green
-    "#8B5CF6", // Violet
+    "#77773c", // green Brown
     "#FFD700", // Yellow
     "#22D3EE", // Cyan
     "#FF1493", // Magenta
@@ -75,7 +75,11 @@ export function CategoryPieChart({ transactions }) {
             </SelectTrigger>
             <SelectContent>
               {monthOptions.map((opt) => (
-                <SelectItem className="text-xs" key={opt.value} value={opt.value}>
+                <SelectItem
+                  className="text-xs"
+                  key={opt.value}
+                  value={opt.value}
+                >
                   {opt.label}
                 </SelectItem>
               ))}
@@ -100,15 +104,10 @@ export function CategoryPieChart({ transactions }) {
                   labelLine={false}
                   label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                   outerRadius={80}
-                  fill="#8884d8"
                   dataKey="total"
                   nameKey="category"
                   className="-translate-y-2"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
+                ></Pie>
                 <ChartLegend
                   content={<ChartLegendContent nameKey="category" />}
                   className="max-w-full sm:max-w-[90%] lg:max-w-full xl:max-w-[90%] mx-auto flex flex-wrap justify-center gap-x-4 leading-0 sm:leading-none"
