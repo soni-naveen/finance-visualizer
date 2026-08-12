@@ -163,7 +163,7 @@ export default function DashboardClient() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[#e6fff2]">
+          <Card className={`${netIncome >= 0 ? "bg-[#e6fff2]" : "bg-[#f9f2ec]"}`}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="font-medium text-muted-foreground text-base">
                 Net Income

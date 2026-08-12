@@ -100,7 +100,7 @@ export function BudgetList({
           <div className="space-y-5">
             <div>
               <h4 className="font-medium mb-1">Top Spending Category: </h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-red-700">
                 {currentMonthCategorySummary[0]?.category} -{" "}
                 {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
               </p>
