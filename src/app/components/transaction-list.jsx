@@ -469,9 +469,9 @@ export function TransactionList({
             >
               {visibleCount < filteredTransactions.length && (
                 <div className="flex justify-center py-2 text-muted-foreground">
-                  <div className="flex items-center gap-1">
+                  <div className="text-sm sm:text-base flex items-center gap-1">
                     View More
-                    <RxDoubleArrowDown className="text-lg" />
+                    <RxDoubleArrowDown className="sm:text-lg" />
                   </div>
                 </div>
               )}
