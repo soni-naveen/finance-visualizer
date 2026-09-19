@@ -97,7 +97,7 @@ export default function DashboardClient() {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-5 py-8">
         <div className="flex flex-col gap-7 md:gap-0 md:flex-row justify-between md:items-center mb-8">
           <div className="flex justify-between items-center">
             <div className="md:space-y-1">

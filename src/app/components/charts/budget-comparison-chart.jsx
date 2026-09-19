@@ -64,7 +64,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 color: "#9fc8c8",
               },
             }}
-            className="h-[300px] w-full"
+            className="h-[300px] w-full -translate-x-3"
           >
             <ResponsiveContainer
               width="100%"

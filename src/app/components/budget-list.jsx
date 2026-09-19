@@ -93,21 +93,54 @@ export function BudgetList({
   return (
     <>
       <Card className="mt-8">
-        <CardHeader>
+        <div className="flex p-4 xs:px-6 xs:pt-6 xs:pb-2 justify-between">
           <CardTitle className="pt-2">Spending Insights</CardTitle>
-        </CardHeader>
+          {budgets.length > 0 && (
+            <div className="flex justify-end">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="delete" size="sm">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete All Budgets</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete all budgets? This action
+                      cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => handleDeleteAllBudgets()}
+                      className="bg-red-700 hover:bg-red-800"
+                    >
+                      {loadingAll ? "Deleting..." : "Delete All"}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          )}
+        </div>
         <CardContent>
           <div className="space-y-5">
             <div>
-              <h4 className="font-medium mb-1">Top Spending Category: </h4>
-              <p className="text-sm text-red-700">
+              <h4 className="text-xs sm:text-sm font-medium mb-1">
+                Top Spending Category:{" "}
+              </h4>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {currentMonthCategorySummary[0]?.category} -{" "}
                 {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
               </p>
             </div>
             {budgets.length > 0 && (
               <div>
-                <h4 className="font-medium mb-1">Budget Status</h4>
+                <h4 className="text-xs sm:text-sm font-medium mb-1">
+                  Budget Status
+                </h4>
                 <div className="overflow-x-auto">
                   <div className="pb-3 space-y-2 min-w-[500px]">
                     {budgets
@@ -127,11 +160,15 @@ export function BudgetList({
                             key={budget._id}
                             className="flex justify-between items-center"
                           >
-                            <span className="text-xs xs:text-sm text-muted-foreground">
+                            <span className="text-sm sm:text-base text-muted-foreground">
                               {budget.category}
                             </span>
                             <div className="flex items-center space-x-5">
-                              <span className="text-xs xs:text-sm">
+                              <span
+                                className={`text-sm ${
+                                  isOverBudget ? "text-red-600 font-medium" : ""
+                                }`}
+                              >
                                 {formatCurrency(actual)} /{" "}
                                 {formatCurrency(budget.amount)}
                               </span>
@@ -202,36 +239,6 @@ export function BudgetList({
           </div>
         </CardContent>
       </Card>
-
-      {budgets.length > 0 && (
-        <div className="flex justify-end mt-3">
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="delete" size="sm">
-                Delete All
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Delete All Budgets</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Are you sure you want to delete all budgets? This action
-                  cannot be undone.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={() => handleDeleteAllBudgets()}
-                  className="bg-red-700 hover:bg-red-800"
-                >
-                  {loadingAll ? "Deleting..." : "Delete All"}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>
-      )}
     </>
   );
 }

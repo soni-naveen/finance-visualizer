@@ -33,7 +33,9 @@ export function TransactionForm({
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     amount: transaction?.amount?.toString() || "",
-    date: transaction?.date || new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }),
+    date:
+      transaction?.date ||
+      new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }),
     description: transaction?.description || "",
     category: transaction?.category || "",
     type: transaction?.type || "expense",
@@ -107,7 +109,9 @@ export function TransactionForm({
         onCreated?.(data);
         setFormData({
           amount: "",
-          date: new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }),
+          date: new Date().toLocaleDateString("en-CA", {
+            timeZone: "Asia/Kolkata",
+          }),
           description: "",
           category: "",
           type: "expense",
@@ -170,8 +174,8 @@ export function TransactionForm({
                 id="date"
                 type="date"
                 max={new Date().toLocaleDateString("en-CA", {
-  timeZone: "Asia/Kolkata",
-})}
+                  timeZone: "Asia/Kolkata",
+                })}
                 value={formData.date}
                 onChange={(e) =>
                   setFormData({ ...formData, date: e.target.value })
