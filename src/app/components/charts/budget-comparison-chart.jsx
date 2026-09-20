@@ -83,7 +83,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 />
                 <YAxis
                   fontSize={11}
-                  tickLine={false}
+                  tickLine={true}
                   axisLine={true}
                   tickFormatter={(value) => `₹${value}`}
                 />

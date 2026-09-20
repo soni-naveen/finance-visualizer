@@ -76,11 +76,12 @@ export function TransactionList({
   };
 
   const today = new Date();
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+  const fifteenDaysAgo = new Date();
+  fifteenDaysAgo.setDate(today.getDate() - 15);
 
   const [filters, setFilters] = useState({
-    startDate: toDateInputValue(oneYearAgo),
+    startDate: toDateInputValue(fifteenDaysAgo),
     endDate: toDateInputValue(today),
     minAmount: "",
     maxAmount: "",
@@ -236,7 +237,12 @@ export function TransactionList({
     <>
       <Card>
         <CardHeader className="flex flex-row justify-between items-center">
-          <CardTitle className="pt-2">Recent Transactions</CardTitle>
+          <div>
+            <CardTitle className="pt-1">Recent Transactions </CardTitle>
+            <p className="text-xs text-muted-foreground leading-none pt-1">
+              Last 15 days
+            </p>
+          </div>
           <Button
             variant="secondary"
             size="sm"
@@ -354,7 +360,7 @@ export function TransactionList({
                 className="w-full xs:w-auto xs:min-w-45"
                 onClick={() =>
                   setFilters({
-                    startDate: toDateInputValue(oneYearAgo),
+                    startDate: toDateInputValue(fifteenDaysAgo),
                     endDate: toDateInputValue(today),
                     minAmount: "",
                     maxAmount: "",
@@ -481,7 +487,7 @@ export function TransactionList({
         {/* Transaction Details Bottom Sheet */}
         {selectedTransaction && (
           <div
-            className="fixed inset-0 z-50 flex items-end justify-center"
+            className="fixed inset-0 z-50 flex items-end justify-center overflow-hidden overscroll-none"
             onClick={closeTransactionModal}
           >
             {/* Backdrop */}
