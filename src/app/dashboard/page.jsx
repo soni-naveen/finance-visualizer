@@ -23,7 +23,7 @@ import {
   getCurrentMonthString,
   formatCurrency,
 } from "@/lib/utils/analytics";
-import { DollarSign, TrendingUp, TrendingDown, PieChart } from "lucide-react";
+import { IndianRupee, TrendingUp, TrendingDown, PieChart } from "lucide-react";
 import Footer from "@/components/footer";
 
 export default function DashboardClient() {
@@ -168,7 +168,7 @@ export default function DashboardClient() {
               <CardTitle className="font-medium text-muted-foreground text-base">
                 Net Income
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div
