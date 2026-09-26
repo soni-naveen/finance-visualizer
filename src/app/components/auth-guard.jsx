@@ -27,7 +27,7 @@ export function AuthGuard({ children }) {
     if (user && isOnPublicAuthRoute) {
       router.replace("/dashboard");
     } else if (!user && !isOnPublicAuthRoute) {
-      router.replace("/auth/signin");
+      router.replace("/");
     }
   }, [user, loading, pathname, router]);
 

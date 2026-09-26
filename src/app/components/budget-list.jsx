@@ -126,8 +126,9 @@ export function BudgetList({
           )}
         </div>
         <CardContent>
-          <div className="space-y-5">
-            <div>
+          <div className="-mt-4">
+            <hr className="text-muted-foreground/30"/>
+            <div className="py-3">
               <h4 className="text-xs sm:text-sm font-medium mb-1">
                 Top Spending Category:{" "}
               </h4>
@@ -136,8 +137,9 @@ export function BudgetList({
                 {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
               </p>
             </div>
+            <hr className="text-muted-foreground/30"/>
             {budgets.length > 0 && (
-              <div>
+              <div className="mt-4">
                 <h4 className="text-xs sm:text-sm font-medium mb-1">
                   Budget Status
                 </h4>
