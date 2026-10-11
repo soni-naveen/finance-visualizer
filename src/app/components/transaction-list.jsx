@@ -626,7 +626,10 @@ export function TransactionList({
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={() => handleDelete(selectedTransaction._id)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDelete(selectedTransaction._id);
+                          }}
                           disabled={deletingId === selectedTransaction._id}
                           className="bg-red-700 hover:bg-red-800"
                         >

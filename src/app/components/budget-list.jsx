@@ -127,7 +127,7 @@ export function BudgetList({
         </div>
         <CardContent>
           <div className="-mt-4">
-            <hr className="text-muted-foreground/30"/>
+            <hr className="text-muted-foreground/30" />
             <div className="py-3">
               <h4 className="text-xs sm:text-sm font-medium mb-1">
                 Top Spending Category:{" "}
@@ -137,7 +137,7 @@ export function BudgetList({
                 {formatCurrency(currentMonthCategorySummary[0]?.total || 0)}
               </p>
             </div>
-            <hr className="text-muted-foreground/30"/>
+            <hr className="text-muted-foreground/30" />
             {budgets.length > 0 && (
               <div className="mt-4">
                 <h4 className="text-xs sm:text-sm font-medium mb-1">
@@ -218,7 +218,10 @@ export function BudgetList({
                                         Cancel
                                       </AlertDialogCancel>
                                       <AlertDialogAction
-                                        onClick={() => handleDelete(budget._id)}
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          handleDelete(budget._id);
+                                        }}
                                         disabled={deletingId === budget._id}
                                         className="bg-red-700 hover:bg-red-800"
                                       >
