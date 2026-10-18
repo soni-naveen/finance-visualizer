@@ -30,7 +30,12 @@ const ChartContainer = ({ id, className, children, config, ...props }, ref) => {
         ref={ref}
         className={cn(
           "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
-          className
+          "[&_.recharts-wrapper]:outline-none",
+          "[&_.recharts-surface]:outline-none",
+          "[&_.recharts-surface:focus]:outline-none",
+          "[&_.recharts-surface:focus-visible]:outline-none",
+          "[&_*:focus]:outline-none",
+          className,
         )}
         {...props}
       >
@@ -46,7 +51,7 @@ ChartContainer.displayName = "Chart";
 
 const ChartStyle = ({ id, config }) => {
   const colorConfig = Object.entries(config).filter(
-    ([_, config]) => config.theme || config.color
+    ([_, config]) => config.theme || config.color,
   );
 
   if (!colorConfig.length) {
@@ -65,7 +70,7 @@ const ChartStyle = ({ id, config }) => {
                 const color = itemConfig.theme?.[theme] || itemConfig.color;
                 return color ? `  --color-${key}: ${color};` : null;
               })
-              .join("\n")}}`
+              .join("\n")}}`,
           )
           .join("\n"),
       }}
@@ -91,7 +96,7 @@ const ChartTooltipContent = (
     nameKey,
     labelKey,
   },
-  ref
+  ref,
 ) => {
   const { config } = useChart();
 
@@ -142,7 +147,7 @@ const ChartTooltipContent = (
       ref={ref}
       className={cn(
         "grid min-w-[5rem] items-start gap-1.5 rounded-lg border border-border/50 bg-white px-2.5 py-1.5 text-xs shadow-xl",
-        className
+        className,
       )}
     >
       {!nestLabel ? tooltipLabel : null}
@@ -157,7 +162,7 @@ const ChartTooltipContent = (
               key={item.dataKey}
               className={cn(
                 "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
-                indicator === "dot" && "items-center"
+                indicator === "dot" && "items-center",
               )}
             >
               {formatter && item?.value !== undefined && item.name ? (
@@ -177,7 +182,7 @@ const ChartTooltipContent = (
                             "w-0 border-[1.5px] border-dashed bg-transparent":
                               indicator === "dashed",
                             "my-0.5": nestLabel && indicator === "dashed",
-                          }
+                          },
                         )}
                         style={{
                           "--color-bg": indicatorColor,
@@ -189,7 +194,7 @@ const ChartTooltipContent = (
                   <div
                     className={cn(
                       "flex flex-1 justify-between leading-none",
-                      nestLabel ? "items-end" : "items-center"
+                      nestLabel ? "items-end" : "items-center",
                     )}
                   >
                     <div className="grid gap-1.5">
@@ -219,7 +224,7 @@ const ChartLegend = RechartsPrimitive.Legend;
 
 const ChartLegendContent = (
   { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
-  ref
+  ref,
 ) => {
   const { config } = useChart();
 
@@ -233,7 +238,7 @@ const ChartLegendContent = (
       className={cn(
         "flex items-center justify-center gap-4",
         verticalAlign === "top" ? "pb-3" : "pt-3",
-        className
+        className,
       )}
     >
       {payload.map((item) => {
@@ -244,7 +249,7 @@ const ChartLegendContent = (
           <div
             key={item.value}
             className={cn(
-              "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
+              "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
             )}
           >
             {itemConfig?.icon && !hideIcon ? (

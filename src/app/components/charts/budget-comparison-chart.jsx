@@ -64,17 +64,17 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                 color: "#9fc8c8",
               },
             }}
-            className="h-[300px] w-full -translate-x-3"
+            className="h-[300px] w-full -translate-x-4"
           >
             <ResponsiveContainer
               width="100%"
               height="100%"
-              className="-translate-x-3"
+              className="-translate-x-4"
             >
-              <BarChart data={chartData}>
+              <BarChart data={chartData} accessibilityLayer={false}>
                 <XAxis
                   dataKey="category"
-                  fontSize={11}
+                  fontSize={10}
                   tickLine={false}
                   axisLine={true}
                   angle={-45}
@@ -82,7 +82,7 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                   height={80}
                 />
                 <YAxis
-                  fontSize={11}
+                  fontSize={10}
                   tickLine={true}
                   axisLine={true}
                   tickFormatter={(value) => `₹${value}`}
@@ -99,14 +99,14 @@ export function BudgetComparisonChart({ budgets, actualSpending }) {
                   dataKey="actual"
                   fill="var(--color-actual)"
                   name="Actual"
-                  radius={[4, 4, 0, 0]}
+                  radius={[2, 2, 0, 0]}
                   shape={<CustomBar />}
                 />
                 <Bar
                   dataKey="budget"
                   fill="var(--color-budget)"
                   name="Budget"
-                  radius={[4, 4, 0, 0]}
+                  radius={[2, 2, 0, 0]}
                 />
               </BarChart>
             </ResponsiveContainer>

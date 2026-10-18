@@ -41,18 +41,18 @@ export function MonthlyExpensesChart({ data }) {
               color: "var(--color-chart-1)",
             },
           }}
-          className="h-[300px] w-full -translate-x-2"
+          className="h-[300px] w-full -translate-x-4"
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
               <XAxis
                 dataKey="monthLabel"
-                fontSize={12}
+                fontSize={10}
                 tickLine={false}
                 axisLine={true}
               />
               <YAxis
-                fontSize={12}
+                fontSize={10}
                 tickLine={true}
                 axisLine={true}
                 tickFormatter={(value) => `₹${value}`}

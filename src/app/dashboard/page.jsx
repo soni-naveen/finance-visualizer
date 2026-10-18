@@ -97,14 +97,14 @@ export default function DashboardClient() {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-5 py-8">
+      <div className="container mx-auto px-3 sm:px-4 py-8">
         <div className="flex flex-col gap-7 md:gap-0 md:flex-row justify-between md:items-center mb-8">
           <div className="flex justify-between items-center">
             <div className="md:space-y-1">
-              <h1 className="text-2xl md:text-3xl font-bold text-chart-3">
+              <h1 className="text-xl md:text-2xl font-bold text-chart-3">
                 Financial Dashboard
               </h1>
-              <p className="text-muted-foreground text-sm md:text-base flex items-center gap-2">
+              <p className="text-muted-foreground text-xs md:text-sm flex items-center gap-2">
                 Welcome back, {user?.displayName || "User"}!
               </p>
             </div>
@@ -132,68 +132,68 @@ export default function DashboardClient() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
           <Card className="bg-[#e6f9ff]">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">
+              <CardTitle className="font-medium text-muted-foreground text-xs xs:text-sm sm:text-base">
                 Total Income
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <TrendingUp className="h-3 sm:h-4 w-3 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-chart-1">
+              <div className="text-lg xs:text-xl sm:text-2xl font-semibold text-chart-1">
                 {formatCurrency(totalIncome)}
               </div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
 
           <Card className="bg-[#f9f2ec]">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">
+              <CardTitle className="font-medium text-muted-foreground text-xs xs:text-sm sm:text-base">
                 Total Expenses
               </CardTitle>
-              <TrendingDown className="h-4 w-4 text-muted-foreground" />
+              <TrendingDown className="h-3 sm:h-4 w-3 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-lg xs:text-xl sm:text-2xl font-semibold text-red-600">
                 {formatCurrency(totalExpenses)}
               </div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
 
           <Card className={`${netIncome >= 0 ? "bg-[#e6fff2]" : "bg-[#f9f2ec]"}`}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">
+              <CardTitle className="font-medium text-muted-foreground text-xs xs:text-sm sm:text-base">
                 Net Income
               </CardTitle>
-              <IndianRupee className="h-4 w-4 text-muted-foreground" />
+              <IndianRupee className="h-3 sm:h-4 w-3 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div
-                className={`text-2xl font-bold ${
+                className={`text-lg xs:text-xl sm:text-2xl font-semibold ${
                   netIncome >= 0 ? "text-green-600" : "text-red-600"
                 }`}
               >
                 {formatCurrency(netIncome)}
               </div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
 
           <Card className="bg-[#f2f2f2]">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="font-medium text-muted-foreground text-base">
+              <CardTitle className="font-medium text-muted-foreground text-xs xs:text-sm sm:text-base">
                 Categories
               </CardTitle>
-              <PieChart className="h-4 w-4 text-muted-foreground" />
+              <PieChart className="h-3 sm:h-4 w-3 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-chart-3">
+              <div className="text-lg xs:text-xl sm:text-2xl font-semibold text-chart-3">
                 {currentMonthCategorySummary.length}
               </div>
-              <p className="text-xs text-muted-foreground">Active this month</p>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-muted-foreground">Active this month</p>
             </CardContent>
           </Card>
         </div>
